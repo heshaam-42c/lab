@@ -1,0 +1,14 @@
+name: "Hit a webhook"
+ 
+on:
+  push:
+    tags:
+      - '**'
+ 
+jobs:
+  run-updater:
+    runs-on: ubuntu-latest
+    steps:
+    - name: REST API with curl
+      run: |
+        curl -X GET "https://example.com/api/v2/endpoint"
