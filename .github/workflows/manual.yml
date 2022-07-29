@@ -8,4 +8,4 @@ jobs:
     - name: curl
       uses: wei/curl@v1
       with:
-        args: -X POST https://httpbin.org/post
+        args: curl -X POST -F 'user=user@acme.com' -F 'pass=hellopixi' https://pixi.andywright.us/andy/api/login
