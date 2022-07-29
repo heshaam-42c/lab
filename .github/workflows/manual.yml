@@ -8,4 +8,4 @@ jobs:
     - name: curl
       uses: wei/curl@v1
       with:
-        args: -X POST -H 'Content-Type=application/x-www-form-urlencoded' -F 'user=user@acme.com' -F 'pass=hellopixi' https://pixi.andywright.us/andy/api/login
+        args: -X POST -H 'Content-Type=application/x-www-form-urlencoded' -F 'user=user@acme.com' -F 'pass=hellopixi' https://pixidemo-42c.westeurope.cloudapp.azure.com/api/login
