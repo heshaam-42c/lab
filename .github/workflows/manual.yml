@@ -1,14 +1,11 @@
 name: "Hit a webhook"
  
-on:
-  push:
-    tags:
-      - '**'
- 
+on: push
 jobs:
-  run-updater:
+  curl:
     runs-on: ubuntu-latest
     steps:
-    - name: REST API with curl
-      run: |
-        curl -X GET "https://example.com/api/v2/endpoint"
+    - name: curl
+      uses: wei/curl@v1
+      with:
+        args: -X POST https://httpbin.org/post
