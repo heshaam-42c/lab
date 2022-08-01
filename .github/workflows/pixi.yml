@@ -10,8 +10,7 @@ jobs:
       output1: ${{ steps.step1.outputs.test }}
     steps:
     - id: step1
-      run: echo "::set-output name=test::$(curl -k -d "user=user@acme.com&pass=hellopixi" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login
-)"
+      run: echo "::set-output name=test::$(curl -k -d "user=user@acme.com&pass=hellopixi" -H "Content-Type: application/x-www-form-urlencoded" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login)"
 
   job2:
     runs-on: ubuntu-latest
