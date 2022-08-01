@@ -1,0 +1,20 @@
+name: Pixi Token
+
+on: push
+jobs:
+
+  job1:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+    steps:
+    - id: step1
+      run: echo "::set-output name=test::$(curl -X POST -F "user=user@acme.com" -F "pass=hellopixi" https://pixidemo-42c.westeurope.cloudapp.azure.com/api/login)"
+
+  job2:
+    runs-on: ubuntu-latest
+    # Wait from the job1 to be completed before starting job2
+    needs: job1
+    steps:
+    - run: echo ${{needs.job1.outputs.output1}}
