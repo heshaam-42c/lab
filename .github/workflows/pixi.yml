@@ -8,7 +8,7 @@ jobs:
     steps:
     - id: step1
       run: | 
-        response = $(curl https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login)
+        response=$(curl https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login)
         echo "response from curl= $response"
         
   #job2:
