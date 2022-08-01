@@ -28,4 +28,4 @@ jobs:
         deployment_key=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.job1.outputs.output1_encrypted }}" | base64 --decode))
         echo "::add-mask::$deployment_key"
         echo "::set-output name=deployment_key::$deployment_key"
-        echo ${{steps.job2.outputs.deployment_key}}
+        echo ${{steps.step2.outputs.deployment_key}}
