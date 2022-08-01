@@ -9,7 +9,7 @@ jobs:
     - id: step1
       run: | 
         response=$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')
-        deployment_key_for_api_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$response") | base64 -w0)
+        deployment_key_for_api_encrypted=$(gpg --symmetric --batch --passphrase "SECRET" --output - <(echo "$response") | base64 -w0)
         echo "response from curl= $deployment_key_for_api_encrypted"
         
   #job2:
