@@ -10,7 +10,7 @@ jobs:
       output1: ${{ steps.step1.outputs.test }}
     steps:
     - id: step1
-      run: echo "::set-output name=test::$(curl -X POST -F "user=user@acme.com" -F "pass=hellopixi" https://pixi.andywright.us/andy/api/login)"
+      run: echo "::set-output name=test::$(curl -X POST -F "user=user@acme.com" -F "pass=hellopixi" https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login)"
 
   job2:
     runs-on: ubuntu-latest
