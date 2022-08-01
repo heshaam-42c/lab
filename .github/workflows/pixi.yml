@@ -11,7 +11,9 @@ jobs:
     steps:
     - id: step1
       run: | 
-        echo "::set-output name=token::$(curl -k -d "user=user@acme.com&pass=hellopixi123" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')"
+        #echo "::set-output name=token::$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')"
+        response = $(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')
+        echo "response from curl= $response"
         
   #job2:
     #runs-on: ubuntu-latest
