@@ -23,7 +23,8 @@ jobs:
     # Wait from the job1 to be completed before starting job2
     needs: job1
     steps:
-    - run: | #echo ${{needs.job1.outputs.output1}}
+    - id: step2
+      run: | #echo ${{needs.job1.outputs.output1}}
         deployment_key=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.job1.outputs.output1_encrypted }}" | base64 --decode))
         echo "::add-mask::$deployment_key"
         echo "::set-output name=deployment_key::$deployment_key"
