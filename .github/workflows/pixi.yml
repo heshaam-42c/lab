@@ -7,25 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      output1_encrypted: ${{ steps.step1.outputs.output1_encrypted }}
+      output1: ${{ steps.step1.outputs.token }}
     steps:
     - id: step1
-      run: | #echo "::set-output name=test::$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')"
-        deployment_key_for_api=$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')
-        echo "::add-mask::$deployment_key_for_api"
-        output1_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$deployment_key_for_api") | base64 -w0)
-        echo "::set-output name=output1_encrypted::$output1_encrypted"
-      env:
-        SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
-
+      run: | 
+        echo "::set-output name=token::$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')"
+        
   job2:
     runs-on: ubuntu-latest
     # Wait from the job1 to be completed before starting job2
     needs: job1
     steps:
     - id: step2
-      run: | #echo ${{needs.job1.outputs.output1}}
-        deployment_key=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ needs.job1.outputs.output1_encrypted }}" | base64 --decode))
-        echo "::add-mask::$deployment_key"
-        echo "::set-output name=deployment_key::$deployment_key"
-        echo ${{steps.step2.outputs.deployment_key}}
+      run: |
+        echo ${{needs.job1.outputs.output1}}
