@@ -4,25 +4,11 @@ on: push
 jobs:
   job1:
     runs-on: ubuntu-latest
-    outputs:
-      deployment_key_for_api_encrypted: ${{ steps.step1.outputs.deployment_key_for_api_encrypted }}
     steps:
     - id: step1
       run: | 
         response=$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')
-        deployment_key_for_api_encrypted=$(gpg --symmetric --batch --passphrase "SECRET" --output - <(echo "$response") | base64 -w0)
-        echo "::set-output name=deployment_key_for_api_encrypted::$deployment_key_for_api_encrypted"
-        echo ${{steps.step1.outputs.deployment_key_for_api_encrypted}}
-        #echo "encrypted response from curl= $deployment_key_for_api_encrypted"
-
-        deployment_key=$(gpg --decrypt --quiet --batch --passphrase "SECRET" --output - <(echo "$deployment_key_for_api_encrypted" | base64 --decode))
-        echo "decrypted response from curl= $deployment_key"
+        echo "response from curl= $response"
         
-  #job2:
-    #runs-on: ubuntu-latest
-    # Wait from the job1 to be completed before starting job2
-    #needs: job1
-    #steps:
-    #- id: step2
-      #run: |
-        #echo ${{needs.job1.outputs.output1}}
+        docker pull 42crunch/scand-agent:latest
+        docker run -e SCAN_TOKEN=342e841f-b915-4751-9d86-012a968a4eb7 -e SECURITY_TOKEN=$response 42crunch/scand-agent:latest
