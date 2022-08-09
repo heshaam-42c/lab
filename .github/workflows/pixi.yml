@@ -1,4 +1,4 @@
-name: Pixi Token
+name: Pixi Token #1
 
 on: push
 jobs:
