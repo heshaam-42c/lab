@@ -25,7 +25,7 @@ servers:
 - url: "https://api.openweathermap.org/data/2.5/"
 
 security:
-- app_id: []
+- basicAuth: []
 
 # Path Defination for API
 
@@ -67,8 +67,6 @@ components:
       description: "For the query value, type the city name and optionally the country code divided by comma; use ISO 3166 country codes."
       schema:
         type: string
-        pattern: ^example-[0-9a-z]+$
-        maxLength: 32
 
   schemas:
     200:
@@ -262,8 +260,6 @@ components:
           example: 1435650870
 
   securitySchemes:
-    app_id:
-      type: apiKey
-      description: API key to authorize requests. If you don't have an OpenWeatherMap API key, use `0e42a4c3dff34f7e42dbfcd804a5c917`
-      name: appid
-      in: query
+    basicAuth:     # <-- arbitrary name for the security scheme
+      type: http
+      scheme: basic
