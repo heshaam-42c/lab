@@ -14,7 +14,7 @@ jobs:
         pixi_token_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$response") | base64 -w0)
         echo "pixi_token_encrypted=$pixi_token_encrypted" >> $GITHUB_OUTPUT
 
-        #echo "encrypted token= $pixi_token_encrypted"
+        echo "encrypted token= $pixi_token_encrypted"
 
         echo ${{steps.get_token.outputs.pixi_token_encrypted}}
         
