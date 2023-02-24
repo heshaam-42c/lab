@@ -14,7 +14,7 @@ jobs:
         pixi_token_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$response") | base64 -w0)
         echo "pixi_token_encrypted=$pixi_token_encrypted" >> $GITHUB_OUTPUT
 
-        #echo "encrypted response from curl= $pixi_token_encrypted"
+        #echo "encrypted token= $pixi_token_encrypted"
 
         echo ${{steps.get_token.outputs.pixi_token_encrypted}}
         
@@ -29,8 +29,8 @@ jobs:
     - id: run_42c_scan
       run: |
         token=${{needs.job1.outputs.pixi_token_encrypted}}
-        pixi_token=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "$token" | base64 --decode))
+        pixi_token_decrypted=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "$token" | base64 --decode))
 
-        echo "decrypted response from curl= $pixi_token"
+        echo "decrypted token= $pixi_token_decrypted"
       env:
         SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
