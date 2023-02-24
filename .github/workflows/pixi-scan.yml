@@ -5,24 +5,27 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      pixi_token_encrypted: ${{ steps.step1.outputs.pixi_token_encrypted }}
+      pixi_token_encrypted: ${{ steps.get_token.outputs.pixi_token_encrypted }}
     steps:
-    - id: step1
+    - id: get_token
       run: | 
         response=$(curl -k -d "user=656@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/hesh/api/user/login | jq -r '.token')
         echo "::add-mask::$response"
         pixi_token_encrypted=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$response") | base64 -w0)
         #echo "::set-output name=pixi_token_encrypted::$pixi_token_encrypted"
+        echo "pixi_token_encrypted=$pixi_token_encrypted" >> $GITHUB_OUTPUT
 
-        #echo ${{steps.step1.outputs.pixi_token_encrypted}}
+        #echo ${{steps.get_token.outputs.pixi_token_encrypted}}
         echo "encrypted response from curl= $pixi_token_encrypted"
 
         pixi_token=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "$pixi_token_encrypted" | base64 --decode))
         echo "::add-mask::$pixi_token"
         #echo "::set-output name=pixi_token::$pixi_token"
+        echo "pixi_token=$pixi_token" >> $GITHUB_OUTPUT
+
         echo "decrypted response from curl= $pixi_token"
         
-        #Uses ${{ steps.get_deploy_key.outputs.pixi_token }} later...
+        #Uses ${{ steps.get_token.outputs.pixi_token }} later...
       env:
           SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
         
