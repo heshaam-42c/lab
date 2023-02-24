@@ -28,9 +28,8 @@ jobs:
     steps:
     - id: run_42c_scan
       run: |
-        token=${{needs.job1.outputs.get_token}}
-        echo $token
-        pixi_token=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "$token" | base64 --decode))
+        echo ${{needs.job1.outputs.get_token}}
+        pixi_token=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{needs.job1.outputs.get_token}}" | base64 --decode))
         echo "::add-mask::$pixi_token"
         echo "pixi_token=$pixi_token" >> $GITHUB_OUTPUT
 
