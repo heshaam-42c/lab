@@ -12,7 +12,10 @@ info:
   license:
     name: "Sample Liscense"
     url: "https://openweathermap.org"
-    
+
+#x-42c-skipIssues:
+#  - v3-global-securityrequirement-apikey-inquery
+  
 tags:
   - name: Current Weather Data
     description: "Get current weather details"
@@ -67,11 +70,19 @@ components:
       description: "For the query value, type the city name and optionally the country code divided by comma; use ISO 3166 country codes."
       schema:
         type: string
+    
+    cc:
+      name: creditcard
+      in: query
+      description: "Credit card"
+      schema:
+        format: o:Demos:CreditCard
 
   schemas:
     200:
       title: Successful response
       type: object
+      #additionalProperties: false
       properties:
         coord:
           $ref: '#/components/schemas/Coord'
