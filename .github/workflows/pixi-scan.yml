@@ -1,4 +1,4 @@
-name: Pixi Token
+name: PixiTokenScan
 
 on: push
 jobs:
