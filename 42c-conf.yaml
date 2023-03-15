@@ -14,12 +14,36 @@
 #
 # Files in 'foo/' are not discovered.
 
+#audit:
+#  branches:
+#    main:
+#      discovery:
+#        search:
+#          - '**/*.json'
+#          - '**/*.yaml'
+#          - '**/*.yml'
+#          - '!foo/**'
+
 audit:
   branches:
     main:
-      discovery:
-        search:
-          - '**/*.json'
-          - '**/*.yaml'
-          - '**/*.yml'
-          - '!foo/**'
+      mapping:
+        Pixi/Pixi-InitialVersion.json: 89815157-c37b-464c-b84c-376820c1cedb
+        #scan-engine/scand-manager.json: e773f4f8-6282-491b-9b7a-227ce15a91b4
+  
+      discovery: false
+      # specify more fail conditions to be checked in addition to the minimum score
+      fail_on:
+        # fail if the API does not have a valid OpenAPI definition
+        invalid_contract: true
+
+        # fail any issues with severity of 'medium' or higher are detected.
+        # possible severity levels: critical, high, medium, low, info
+        severity:
+          data: critical
+          security: high
+
+        # fail if any of the listed issue IDs are detected
+        issue_id:
+          - v3-global-http-clear
+          - parameter-string-pattern
