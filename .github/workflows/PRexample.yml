@@ -21,12 +21,17 @@ jobs:
       - name: execute py script
         run: python3 Audit/getReport.py
 
-      - name: Update resources
-        uses: test-room-7/action-update-file@v1
+      - name: Commit files
+        run: |
+          git config --local user.name  ${{ github.actor }}
+          git add ./Audit/report.json
+          git commit -m "Updating the repository GitHub audit report.json"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          file-path: Audit/report.json
-          commit-msg: Update report.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
