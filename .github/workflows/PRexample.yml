@@ -18,9 +18,9 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: execute py script
-        run: python lab/Audit/getReport.py
+        run: python /Audit/getReport.py
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: lab/Audit/report.json
+          filePath: /Audit/report.json
