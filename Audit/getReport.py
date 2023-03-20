@@ -19,5 +19,5 @@ decodedStr = decodedBytes.decode("ascii")
 obj = json.loads(decodedStr)["summary"]
 
 # Write to file
-f = open('report.json','w')
+f = open('Audit/report.json','w')
 f.write(json.dumps(obj, indent=4))
