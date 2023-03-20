@@ -46,7 +46,7 @@ jobs:
       uses: teamniteo/pull_request_status_action@v1.0.0
       with:
         # Pull Request number (Mandatory)
-        pr_number: ${{ secrets.GITHUB_REF }}
+        pr_number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 
         # State to apply (Mandatory)
         # Any of the (error | failure | pending | success) states
