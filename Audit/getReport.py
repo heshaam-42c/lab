@@ -2,6 +2,7 @@ import base64
 import json
 import requests
 import sys
+import time
 
 uuid = '9273b0fc-ab90-4325-9fcb-a6f504e07840'
 apikey = 'api_59cc0133-9c5d-4301-8cd9-8e27c62edea1'
@@ -25,5 +26,6 @@ elif sys.argv[1] == 'github':
     f = open('Audit/report.json','w')
 
 # Write to file
-f.write("Audit Summary JSON:\n\n")
+ts = str(time.time())
+f.write("//Audit Summary JSON "+ts+":\n\n")
 f.write(json.dumps(obj, indent=4))
