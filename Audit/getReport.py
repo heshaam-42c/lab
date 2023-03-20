@@ -1,6 +1,7 @@
 import base64
 import json
 import requests
+import sys
 
 uuid = '9273b0fc-ab90-4325-9fcb-a6f504e07840'
 apikey = 'api_59cc0133-9c5d-4301-8cd9-8e27c62edea1'
@@ -18,6 +19,11 @@ decodedStr = decodedBytes.decode("ascii")
 # Create Python object from JSON string data
 obj = json.loads(decodedStr)["summary"]
 
+if sys.argv[1] == 'local':
+    f = open('report.json','w')
+elif sys.argv[1] == 'github':
+    f = open('Audit/report.json','w')
+
 # Write to file
-f = open('Audit/report.json','w')
+f.write("Audit Summary JSON:\n\n")
 f.write(json.dumps(obj, indent=4))
