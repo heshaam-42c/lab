@@ -21,6 +21,13 @@ jobs:
       - name: execute py script
         run: python3 Audit/getReport.py
 
+      - name: Update resources
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: Audit/report.json
+          commit-msg: Update report.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
         with:
