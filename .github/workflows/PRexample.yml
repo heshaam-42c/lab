@@ -6,7 +6,7 @@ jobs:
     name: 42Crunch Summary
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       
       - name: setup python
         uses: actions/setup-python@v4
@@ -18,9 +18,9 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: execute py script
-        run: python /Audit/getReport.py
+        run: python Audit/getReport.py
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: /Audit/report.json
+          filePath: Audit/report.json
