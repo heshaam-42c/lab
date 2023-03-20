@@ -25,5 +25,5 @@ elif sys.argv[1] == 'github':
     f = open('Audit/report.json','w')
 
 # Write to file
-f.write("Summary")
+f.write("Audit Summary JSON:\n\n")
 f.write(json.dumps(obj, indent=4))
