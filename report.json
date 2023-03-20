@@ -1,0 +1,41 @@
+{
+    "oasVersion": "3.0.1",
+    "apiVersion": "Pixiv4-JWT-Validation",
+    "basepath": "",
+    "apiName": "Pixi App API",
+    "description": "Pixi Photo Sharing API",
+    "endpoints": [
+        "https://photo-demo.westeurope.cloudapp.azure.com/api"
+    ],
+    "pathCounter": 1,
+    "operationCounter": 7,
+    "parameterCounter": 5,
+    "requestBodyCounter": 3,
+    "schemesCounter": {
+        "https": 7
+    },
+    "requestContentType": {
+        "application/json": 3
+    },
+    "responseContentType": {
+        "application/json": 17
+    },
+    "securitySchemes": {
+        "access-token": {
+            "counterInsecure": 0,
+            "counterSecure": 5,
+            "type": "apiKey",
+            "apiKeyIn": "header",
+            "apiKeyName": "x-access-token"
+        }
+    },
+    "componentsSchemasCounter": 5,
+    "componentsResponsesCounter": 0,
+    "componentsParametersCounter": 0,
+    "componentsExamplesCounter": 0,
+    "componentsRequestBodiesCounter": 0,
+    "componentsHeadersCounter": 0,
+    "componentsSecuritySchemesCounter": 1,
+    "componentsLinksCounter": 0,
+    "componentsCallbacksCounter": 0
+}
