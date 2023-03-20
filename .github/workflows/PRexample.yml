@@ -38,3 +38,34 @@ jobs:
         with:
           filePath: Audit/report.json
           reactions: eyes
+
+  update-pr-status:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set PR Status to pending
+      uses: teamniteo/pull_request_status_action@v1.0.0
+      with:
+        # Pull Request number (Mandatory)
+        pr_number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+
+        # State to apply (Mandatory)
+        # Any of the (error | failure | pending | success) states
+        state: pending
+
+        # Name of the repository in {organization}/{repo_name} format (Mandatory)
+        repository: heshaam-42c/lab
+
+        # Name to identify the Status (Optional)
+        # Defaults to `default`
+        context: default
+
+        # The target URL to associate with the Status (Optional)
+        # This URL will be linked from the Github UI to allow users to easily see the source of the status.
+        target_url: https://demolabs.42crunch.cloud
+
+        # A short description of the status (Optional)
+        description: "42Crunch Audit Check"
+
+      env:
+        # Default Github Token
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
