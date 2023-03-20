@@ -24,7 +24,7 @@ jobs:
       - name: Commit files
         run: |
           git config --local user.name  ${{ github.actor }}
-          git add report.json
+          git add ./Audit/report.json
           git commit -m "Updating the repository GitHub audit report.json"
 
       - name: Push changes
