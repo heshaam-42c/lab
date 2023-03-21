@@ -4,6 +4,13 @@ import requests
 import sys
 import time
 import yaml
+import os
+
+env_file = os.getenv('GITHUB_ENV')
+print(env_file)
+
+#with open(env_file, "r") as myfile:
+#    myfile.write("API_TOKEN=MY_VALUE")
 
 apikey = 'api_59cc0133-9c5d-4301-8cd9-8e27c62edea1'
 
