@@ -1,16 +1,17 @@
-[1m[3m[91m[42mAudit SQG report - 2023-03-21 16:58:51[0m
-Failed
+Audit SQGs - FAILED :sad:
+Timestamp: 2023-03-21 20:12:55
 
-API UUID: 89815157-c37b-464c-b84c-376820c1cedb
+Report: https://demolabs.42crunch.cloud/apis/89815157-c37b-464c-b84c-376820c1cedb/security-audit-report
 
-Failed SQGs -
+| Failed SQGs   |
+|---------------|
 
-| SQG Id                               | Blocking Rule                   |
-|--------------------------------------|---------------------------------|
-| f8555810-00e2-4470-9487-22e855a5de0b | minimum_assessment_score        |
-|                                      | parameter-string-maxlength      |
-|                                      | parameter-string-pattern        |
-| 9193e7e1-7a8f-40ff-8061-c09bcf9ed47c | minimum_assessment_score        |
-|                                      | security/authentication:low     |
-|                                      | data/response_definition:medium |
-|                                      | data/schema:medium              |
+| SQG Id   | Blocking Rule                   |
+|----------|---------------------------------|
+| default  | minimum_assessment_score        |
+|          | parameter-string-maxlength      |
+|          | parameter-string-pattern        |
+| No Auth  | minimum_assessment_score        |
+|          | security/authentication:low     |
+|          | data/schema:medium              |
+|          | data/response_definition:medium |
