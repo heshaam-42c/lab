@@ -14,11 +14,11 @@ import fontstyle
 if len(sys.argv) > 1: # Used for github actions env
     x42confPath = '42c-conf.yaml'
     apikey = sys.argv[2]
-    reportPath = 'Audit/report.txt'
+    reportPath = 'Audit/report.rtf'
 else: # Local
     x42confPath = '../42c-conf.yaml'
     apikey = config('42C_API_TOKEN')
-    reportPath = 'report.txt'
+    reportPath = 'report.rtf'
 
 with open(x42confPath, 'r') as file:
     confYaml = yaml.safe_load(file)

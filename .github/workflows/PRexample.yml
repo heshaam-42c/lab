@@ -28,8 +28,8 @@ jobs:
       - name: Commit files
         run: |
           git config --local user.name  ${{ github.actor }}
-          git add ./Audit/report.txt
-          git commit -m "Updating the repository GitHub audit report.txt"
+          git add ./Audit/report.rtf
+          git commit -m "Updating the repository GitHub audit report.rtf"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -40,7 +40,7 @@ jobs:
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
         with:
-          filePath: Audit/report.txt
+          filePath: Audit/report.rtf
           reactions: eyes
 
   # update-pr-status:
