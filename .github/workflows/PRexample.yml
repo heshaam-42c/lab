@@ -18,9 +18,10 @@ jobs:
           python3 -m pip install --upgrade pip
           pip3 install --user -Iv requests==2.28.1
           pip3 install pyyaml
+          pip3 install python-decouple
 
       - name: execute py script
-        run: python3 Audit/getReport.py github
+        run: python3 Audit/getReport.py github ${{ secrets.API_TOKEN }}
 
       - name: Commit files
         run: |
