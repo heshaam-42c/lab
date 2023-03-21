@@ -8,18 +8,7 @@ import os
 from decouple import config
 from tabulate import tabulate
 from datetime import datetime
-
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
+import fontstyle
 
 # Set vars
 if len(sys.argv) > 1: # Used for github actions env
@@ -54,11 +43,12 @@ print(jsonResponse)
 
 # Write to file
 f = open(reportPath,'w')
-f.write(color.BOLD+"Audit SQG report - "+str(datetime.fromtimestamp(int(jsonResponse['date'])))+color.END)
+text = fontstyle.apply("Audit SQG report - "+str(datetime.fromtimestamp(int(jsonResponse['date']))), 'bold/Italic/red/GREEN_BG')
+f.write(text)
 if jsonResponse['acceptance'] == "no":
-    f.write(color.RED+"\nFailed"+color.END)
+    f.write("\nFailed")
 else:
-    f.write(color.GREEN+"\nPassed"+color.END)
+    f.write("\nPassed")
 
 f.write("\n\nAPI UUID: " + jsonResponse['api'])
 
