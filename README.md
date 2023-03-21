@@ -1,3 +1,3 @@
 # lab
 
-Sample repo
+Sample GHAS repo
