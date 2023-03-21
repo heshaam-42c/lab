@@ -48,7 +48,7 @@ f.write("\n\nAPI UUID: " + jsonResponse['api'])
 f.write("\n\nFailed SQGs -")
 
 sqgTable = []
-head = ["SQG Id", "Blocking Rule"]
+head = ["SQG Id                              ", "Blocking Rule"]
 
 for sqg in jsonResponse['processingDetails']:
     #f.write("\n"+sqg['blockingSqgId'])
