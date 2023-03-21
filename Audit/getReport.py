@@ -7,12 +7,15 @@ import yaml
 import os
 from decouple import config
 
-if sys.argv[1] == 'github':
+# Set vars
+if len(sys.argv) > 1: # Used for github actions env
     x42confPath = '42c-conf.yaml'
     apikey = sys.argv[2]
-else:
+    reportPath = 'Audit/report.txt'
+else: # Local
     x42confPath = '../42c-conf.yaml'
     apikey = config('42C_API_TOKEN')
+    reportPath = 'report.txt'
 
 with open(x42confPath, 'r') as file:
     confYaml = yaml.safe_load(file)
@@ -34,11 +37,6 @@ r = requests.get(url, headers=headers)
 jsonResponse = r.json()
 print("SQG response: \n")
 print(jsonResponse)
-
-if sys.argv[1] == 'github':
-    reportPath = 'Audit/report.txt'
-else:
-    reportPath = 'report.txt'
 
 # Write to file
 f = open(reportPath,'w')
