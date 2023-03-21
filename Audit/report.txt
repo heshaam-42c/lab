@@ -1,16 +1,24 @@
-Audit SQG report - Date: 1679390626
+Audit SQG report - Date: 1679393525
 Passed? no
 
 API UUID: 89815157-c37b-464c-b84c-376820c1cedb
 
 Failed SQGs -
-f8555810-00e2-4470-9487-22e855a5de0b
-1.) minimum_assessment_score
-2.) parameter-string-maxlength
-3.) parameter-string-pattern
 
-9193e7e1-7a8f-40ff-8061-c09bcf9ed47c
-1.) minimum_assessment_score
-2.) security/authentication:low
-3.) data/response_definition:medium
-4.) data/schema:medium
++----------------------------------------+---------------------------------+
+| SQG Id                                 | Blocking Rule                   |
++========================================+=================================+
+| f8555810-00e2-4470-9487-22e855a5de0b   | minimum_assessment_score        |
++----------------------------------------+---------------------------------+
+| ..                                     | parameter-string-maxlength      |
++----------------------------------------+---------------------------------+
+| ..                                     | parameter-string-pattern        |
++----------------------------------------+---------------------------------+
+| 9193e7e1-7a8f-40ff-8061-c09bcf9ed47c   | minimum_assessment_score        |
++----------------------------------------+---------------------------------+
+| ..                                     | security/authentication:low     |
++----------------------------------------+---------------------------------+
+| ..                                     | data/schema:medium              |
++----------------------------------------+---------------------------------+
+| ..                                     | data/response_definition:medium |
++----------------------------------------+---------------------------------+
