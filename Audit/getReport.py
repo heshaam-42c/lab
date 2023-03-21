@@ -5,19 +5,14 @@ import sys
 import time
 import yaml
 import os
-
-env_file = os.getenv('GITHUB_ENV')
-print(env_file)
-
-#with open(env_file, "r") as myfile:
-#    myfile.write("API_TOKEN=MY_VALUE")
-
-apikey = 'api_59cc0133-9c5d-4301-8cd9-8e27c62edea1'
+from decouple import config
 
 if sys.argv[1] == 'github':
     x42confPath = '42c-conf.yaml'
+    apikey = sys.argv[2]
 else:
     x42confPath = '../42c-conf.yaml'
+    apikey = config('42C_API_TOKEN')
 
 with open(x42confPath, 'r') as file:
     confYaml = yaml.safe_load(file)
@@ -48,8 +43,8 @@ else:
 # Write to file
 f = open(reportPath,'w')
 f.write("Audit SQG report - Date: "+jsonResponse['date'])
+f.write("\nPassed? " + jsonResponse['acceptance'])
 f.write("\n\nAPI UUID: " + jsonResponse['api'])
-f.write("\nPassed: " + jsonResponse['acceptance'])
 
 f.write("\n\nFailed SQGs -")
 for sqg in jsonResponse['processingDetails']:

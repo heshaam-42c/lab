@@ -8,10 +8,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      - name: Set the value
-        run: |
-          echo "api_token=${{ secrets.API_TOKEN }}" >> $GITHUB_ENV
-      
       - name: setup python
         uses: actions/setup-python@v4
         with:
@@ -24,7 +20,7 @@ jobs:
           pip3 install pyyaml
 
       - name: execute py script
-        run: python3 Audit/getReport.py github
+        run: python3 Audit/getReport.py github ${{ secrets.API_TOKEN }}
 
       - name: Commit files
         run: |
