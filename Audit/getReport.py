@@ -4,13 +4,18 @@ import requests
 import sys
 import time
 import yaml
+import os
+from decouple import config
 
-apikey = 'api_59cc0133-9c5d-4301-8cd9-8e27c62edea1'
-
-if sys.argv[1] == 'github':
+# Set vars
+if len(sys.argv) > 1: # Used for github actions env
     x42confPath = '42c-conf.yaml'
-else:
+    apikey = sys.argv[2]
+    reportPath = 'Audit/report.txt'
+else: # Local
     x42confPath = '../42c-conf.yaml'
+    apikey = config('42C_API_TOKEN')
+    reportPath = 'report.txt'
 
 with open(x42confPath, 'r') as file:
     confYaml = yaml.safe_load(file)
@@ -33,16 +38,11 @@ jsonResponse = r.json()
 print("SQG response: \n")
 print(jsonResponse)
 
-if sys.argv[1] == 'github':
-    reportPath = 'Audit/report.txt'
-else:
-    reportPath = 'report.txt'
-
 # Write to file
 f = open(reportPath,'w')
 f.write("Audit SQG report - Date: "+jsonResponse['date'])
+f.write("\nPassed? " + jsonResponse['acceptance'])
 f.write("\n\nAPI UUID: " + jsonResponse['api'])
-f.write("\nPassed: " + jsonResponse['acceptance'])
 
 f.write("\n\nFailed SQGs -")
 for sqg in jsonResponse['processingDetails']:
