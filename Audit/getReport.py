@@ -7,6 +7,7 @@ import yaml
 import os
 from decouple import config
 from tabulate import tabulate
+from datetime import datetime
 
 # Set vars
 if len(sys.argv) > 1: # Used for github actions env
@@ -41,14 +42,14 @@ print(jsonResponse)
 
 # Write to file
 f = open(reportPath,'w')
-f.write("Audit SQG report - Date: "+jsonResponse['date'])
+f.write("Audit SQG report - "+str(datetime.fromtimestamp(int(jsonResponse['date']))))
 f.write("\nPassed? " + jsonResponse['acceptance'])
 f.write("\n\nAPI UUID: " + jsonResponse['api'])
 
 f.write("\n\nFailed SQGs -")
 
 sqgTable = []
-head = ["SQG Id                              ", "Blocking Rule"]
+head = ["SQG Id", "Blocking Rule"]
 
 for sqg in jsonResponse['processingDetails']:
     #f.write("\n"+sqg['blockingSqgId'])
@@ -57,11 +58,11 @@ for sqg in jsonResponse['processingDetails']:
         if count == 0:
             appendRow = [sqg['blockingSqgId'], rule]
         else:
-            appendRow = ["..", rule]
+            appendRow = ["", rule]
         sqgTable.append(appendRow)
     f.write("\n")
 
-f.write(tabulate(sqgTable, headers=head, tablefmt="grid"))
+f.write(tabulate(sqgTable, headers=head, tablefmt="github"))
 
 # Get audit report
 #url = 'https://demolabs.42crunch.cloud/api/v1/apis/'+uuid+'/assessmentreport'
