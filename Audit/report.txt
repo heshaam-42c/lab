@@ -1,5 +1,5 @@
-Audit SQG report - 2023-03-21 10:22:02
-Passed? no
+[1mAudit SQG report - 2023-03-21 16:40:38[0m[91m
+Failed[0m
 
 API UUID: 89815157-c37b-464c-b84c-376820c1cedb
 
