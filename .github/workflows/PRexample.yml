@@ -8,6 +8,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
+      - name: Set the value
+        run: |
+          echo "api_token=${{ secrets.API_TOKEN }}" >> $GITHUB_ENV
+      
       - name: setup python
         uses: actions/setup-python@v4
         with:
