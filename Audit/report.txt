@@ -1,0 +1,16 @@
+Audit SQG report - Date: 1679385347
+
+API UUID: 89815157-c37b-464c-b84c-376820c1cedb
+Passed: no
+
+Failed SQGs -
+f8555810-00e2-4470-9487-22e855a5de0b
+1.) minimum_assessment_score
+2.) parameter-string-maxlength
+3.) parameter-string-pattern
+
+9193e7e1-7a8f-40ff-8061-c09bcf9ed47c
+1.) minimum_assessment_score
+2.) security/authentication:low
+3.) data/response_definition:medium
+4.) data/schema:medium
