@@ -144,7 +144,6 @@ for sqgReport in jsonResponse['processingDetails']:
     head = ['Category','Threshold','Issues Found']
 
     issuesList = ''
-    print(sqgReport['blockingRules'])
     for count, sqgRule in enumerate(sqgReport['blockingRules']):
         blockingRule = sqgRule.split('/')
         if len(blockingRule) > 1:
