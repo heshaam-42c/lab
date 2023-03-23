@@ -1,6 +1,6 @@
 <img src=https://42crunch.com/wp-content/uploads/2022/02/LogoCr1.png width="200" height="57"/>
 # Audit SQGs - FAILED :red_circle:
-Timestamp: 2023-03-23 08:00:08
+Timestamp: 2023-03-23 08:10:16
 
 Report: https://demolabs.42crunch.cloud/apis/9273b0fc-ab90-4325-9fcb-a6f504e07840/security-audit-report
 
@@ -16,3 +16,21 @@ Report: https://demolabs.42crunch.cloud/apis/9273b0fc-ab90-4325-9fcb-a6f504e0784
 ### Forbidden issues with problem found:
 parameter-string-maxlength
 parameter-string-pattern
+
+
+## SQG - StrictAuth
+
+### Minimum acceptable score:
+| Score                 |   Current |   Minimum Acceptable |
+|-----------------------|-----------|----------------------|
+| Global score          |   55.3767 |                   70 |
+| Security score        |   20      |                   30 |
+| Data validation score |   35.3767 |                    0 |
+
+### Allowed issue security levels:
+| Category   | Threshold                       | Issues Found   |
+|------------|---------------------------------|----------------|
+| Schema     | Issues less than medium allowed | medium         |
+### Forbidden issues with problem found:
+parameter-string-pattern
+parameter-string-maxlength
