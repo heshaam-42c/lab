@@ -1,31 +1,18 @@
-![](/Audit/42logo.png)# Audit SQGs - FAILED :red_circle:
-Timestamp: 2023-03-23 05:56:36
+![](/Audit/42logo.png)
+# Audit SQGs - FAILED :red_circle:
+Timestamp: 2023-03-23 07:49:08
 
-Report: https://demolabs.42crunch.cloud/apis/89815157-c37b-464c-b84c-376820c1cedb/security-audit-report
+Report: https://demolabs.42crunch.cloud/apis/9273b0fc-ab90-4325-9fcb-a6f504e07840/security-audit-report
 
 ## SQG - default
 
 ### Minimum acceptable score:
 | Score                 |   Current |   Minimum Acceptable |
 |-----------------------|-----------|----------------------|
-| Global score          |   56.1417 |                   75 |
+| Global score          |   55.3767 |                   75 |
 | Security score        |   20      |                   20 |
-| Data validation score |   36.1417 |                    0 |
+| Data validation score |   35.3767 |                    0 |
 
-
-
-## SQG - No Auth
-
-### Minimum acceptable score:
-| Score                 |   Current |   Minimum Acceptable |
-|-----------------------|-----------|----------------------|
-| Global score          |   56.1417 |                   70 |
-| Security score        |   20      |                    0 |
-| Data validation score |   36.1417 |                    0 |
-
-### Allowed issue security levels:
-| Category            | Threshold                       | Issues Found   |
-|---------------------|---------------------------------|----------------|
-| Authentication      | Issues less than low allowed    | low            |
-| Response Definition | Issues less than medium allowed | medium         |
-| Schema              | Issues less than medium allowed | medium         |
+### Forbidden issues with problem found:
+parameter-string-maxlength
+parameter-string-pattern

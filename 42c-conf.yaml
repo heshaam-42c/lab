@@ -28,7 +28,7 @@ audit:
   branches:
     main:
       mapping:
-        Pixi/pixi.json: 89815157-c37b-464c-b84c-376820c1cedb
+        Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
         #scan-engine/scand-manager.json: e773f4f8-6282-491b-9b7a-227ce15a91b4
   
       discovery: false
