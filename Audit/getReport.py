@@ -78,7 +78,7 @@ jsonResponse = r.json()
 print(jsonResponse)
 
 # Add 42c logo
-fileString = '![](/Audit/42logo.png)'
+fileString = '<img src=https://42crunch.com/wp-content/uploads/2022/02/LogoCr1.png width="200" height="57"/>'
 
 # Parse response
 if jsonResponse['acceptance'] == 'no':
