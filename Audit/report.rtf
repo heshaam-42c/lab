@@ -1,17 +1,31 @@
-Audit SQGs - FAILED :sad:
-Timestamp: 2023-03-21 20:12:55
+Audit SQGs - FAILED :red_circle:
+Timestamp: 2023-03-23 05:31:03
 
 Report: https://demolabs.42crunch.cloud/apis/89815157-c37b-464c-b84c-376820c1cedb/security-audit-report
 
-| Failed SQGs   |
-|---------------|
+SQG - default
 
-| SQG Id   | Blocking Rule                   |
-|----------|---------------------------------|
-| default  | minimum_assessment_score        |
-|          | parameter-string-maxlength      |
-|          | parameter-string-pattern        |
-| No Auth  | minimum_assessment_score        |
-|          | security/authentication:low     |
-|          | data/schema:medium              |
-|          | data/response_definition:medium |
+Minimum acceptable score:
+| Score                 |   Current |   Minimum Acceptable |
+|-----------------------|-----------|----------------------|
+| Global score          |   56.1417 |                   75 |
+| Security score        |   20      |                   20 |
+| Data validation score |   36.1417 |                    0 |
+
+
+
+SQG - No Auth
+
+Minimum acceptable score:
+| Score                 |   Current |   Minimum Acceptable |
+|-----------------------|-----------|----------------------|
+| Global score          |   56.1417 |                   70 |
+| Security score        |   20      |                    0 |
+| Data validation score |   36.1417 |                    0 |
+
+Allowed issue security levels:
+| Category            | Threshold                       | Issues Found   |
+|---------------------|---------------------------------|----------------|
+| Authentication      | Issues less than low allowed    | low            |
+| Response Definition | Issues less than medium allowed | medium         |
+| Schema              | Issues less than medium allowed | medium         |
