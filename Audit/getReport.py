@@ -83,10 +83,10 @@ fileString = '<img src=https://42crunch.com/wp-content/uploads/2022/02/LogoCr1.p
 # Parse response
 if jsonResponse['acceptance'] == 'no':
     sqgPassed = False
-    fileString += '\n# Audit SQGs - FAILED :red_circle:'
+    fileString += '\n\n# Audit SQGs - FAILED :red_circle:'
 else:
     sqgPassed = True
-    fileString += '\n# Audit SQGs - PASSED :green_circle:'
+    fileString += '\n\n# Audit SQGs - PASSED :green_circle:'
 
 fileString += '\nTimestamp: '+str(datetime.fromtimestamp(int(jsonResponse['date'])))
 
