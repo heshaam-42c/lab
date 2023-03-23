@@ -57,6 +57,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "properties": {
                     "message": {
                       "maxLength": 255,
@@ -176,6 +177,7 @@
                     "token"
                   ],
                   "type": "object",
+                  "additionalProperties": false,
                   "properties": {
                     "message": {
                       "maxLength": 255,
@@ -290,6 +292,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "properties": {
                     "message": {
                       "maxLength": 255,
@@ -382,16 +385,45 @@
               }
             }
           },
+          "404": {
+            "description": "page not found",
+            "content": {}
+          },
           "403": {
             "description": "invalid or missing token",
             "content": {}
-          },
-          "default": {
-            "description": "unexpected error",
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "get user information",
+        "description": "user supplies valid token and receives all user info",
+        "operationId": "fetchuserinfo",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful authentication sent user information",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
+                  "maxItems": 1,
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsersItem"
+                  }
                 }
               }
             }
@@ -448,7 +480,13 @@
           },
           "403": {
             "description": "invalid or missing token",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
           },
           "default": {
             "description": "unexpected error",
@@ -506,7 +544,13 @@
           },
           "403": {
             "description": "No token provided or invalid token.",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersListItem"
+                }
+              }
+            }
           },
           "default": {
             "description": "unexpected error",
@@ -519,59 +563,6 @@
             }
           }
         },
-        "security": [
-          {
-            "access-token": []
-          }
-        ]
-      }
-    },
-    "/admin/user/{userid}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string",
-            "format": "uuid",
-            "example": "DD68C630-3CCB-4FD0-9C5B-A0A34C952681",
-            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
-            "minLength": 36,
-            "maxLength": 36,
-            "x-42c-format": "o:standard:uuid"
-          },
-          "name": "userid",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "delete": {
-        "summary": "Delete User",
-        "tags": [
-          "users"
-        ],
-        "description": "Delete a user identified by unique ID",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "x-examples": {
-                    "example-1": {
-                      "message": "success"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "deleteUser",
         "security": [
           {
             "access-token": []
@@ -608,7 +599,7 @@
           "onboarding_date"
         ],
         "type": "object",
-        "additionalProperties": true,
+        "additionalProperties": false,
         "properties": {
           "_id": {
             "type": "string",
@@ -664,7 +655,12 @@
             "type": "array",
             "items": {
               "type": "object",
-              "properties": {}
+              "additionalProperties": false,
+              "properties": {
+                "picUUID": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -724,7 +720,7 @@
           "name"
         ],
         "type": "object",
-        "additionalProperties": false,
+        "additionalProperties": true,
         "properties": {
           "email": {
             "type": "string"
