@@ -13,10 +13,12 @@ from datetime import datetime
 if len(sys.argv) > 1: # Used for github actions env
     x42confPath = '42c-conf.yaml'
     apikey = sys.argv[2]
+    oasFile = 'Pixi/pixi.json'
     reportPath = 'Audit/report.rtf'
 else: # Local
     x42confPath = '../42c-conf.yaml'
     apikey = config('42C_API_TOKEN')
+    oasFile = '../Pixi/pixi.json'
     reportPath = 'report.rtf'
 
 # Open 42c-conf.yaml
