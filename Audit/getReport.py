@@ -61,10 +61,10 @@ print(jsonResponse)
 # Parse response
 if jsonResponse['acceptance'] == 'no':
     sqgPassed = False
-    fileString = 'Audit SQGs - FAILED :red_circle:'
+    fileString = '# Audit SQGs - FAILED :red_circle:'
 else:
     sqgPassed = True
-    fileString = 'Audit SQGs - PASSED :green_circle:'
+    fileString = '# Audit SQGs - PASSED :green_circle:'
 
 fileString += '\nTimestamp: '+str(datetime.fromtimestamp(int(jsonResponse['date'])))
 
@@ -77,9 +77,9 @@ for sqgReport in jsonResponse['processingDetails']:
     r = requests.get(url, headers=headers)
     sqgIdJson = r.json()
 
-    fileString += '\n\nSQG - '+sqgIdJson['name']
+    fileString += '\n\n## SQG - '+sqgIdJson['name']
 
-    fileString += '\n\nMinimum acceptable score:'
+    fileString += '\n\n### Minimum acceptable score:'
 
     severityMap = {
         "info": "1",
@@ -155,7 +155,7 @@ for sqgReport in jsonResponse['processingDetails']:
                         severityRow = []
 
     if len(severityTable) > 0:
-        fileString += '\nAllowed issue security levels:'
+        fileString += '\n### Allowed issue security levels:'
         fileString += '\n'+tabulate(severityTable, headers=head, tablefmt='github')
     
     fileString += '\n'
