@@ -58,13 +58,16 @@ r = requests.get(url, headers=headers)
 jsonResponse = r.json()
 print(jsonResponse)
 
+# Add 42c logo
+fileString = '![](/Audit/42logo.png)'
+
 # Parse response
 if jsonResponse['acceptance'] == 'no':
     sqgPassed = False
-    fileString = '# Audit SQGs - FAILED :red_circle:'
+    fileString += '# Audit SQGs - FAILED :red_circle:'
 else:
     sqgPassed = True
-    fileString = '# Audit SQGs - PASSED :green_circle:'
+    fileString += '# Audit SQGs - PASSED :green_circle:'
 
 fileString += '\nTimestamp: '+str(datetime.fromtimestamp(int(jsonResponse['date'])))
 
