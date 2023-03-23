@@ -32,7 +32,7 @@ uuid = confYaml['audit']['branches']['main']['mapping']['Pixi/pixi.json']
 headers = {'X-API-KEY': apikey}
 
 # Prepare spec for upload
-with open('../Pixi/pixi.json','r') as jsonFile:
+with open(oasFile,'r') as jsonFile:
     data = json.load(jsonFile)
     datastr = json.dumps(data)
     encodedSpec = base64.b64encode(datastr.encode('utf-8'))
