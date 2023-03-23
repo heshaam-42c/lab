@@ -83,10 +83,10 @@ fileString = '<img src=https://42crunch.com/wp-content/uploads/2022/02/LogoCr1.p
 # Parse response
 if jsonResponse['acceptance'] == 'no':
     sqgPassed = False
-    fileString += '\n# Audit SQGs - FAILED :red_circle:'
+    fileString += '\n\n# Security Quality Gate(s) - FAILED :red_circle:'
 else:
     sqgPassed = True
-    fileString += '\n# Audit SQGs - PASSED :green_circle:'
+    fileString += '\n\n# Security Quality Gate(s) - PASSED :green_circle:'
 
 fileString += '\nTimestamp: '+str(datetime.fromtimestamp(int(jsonResponse['date'])))
 
@@ -102,6 +102,15 @@ for sqgReport in jsonResponse['processingDetails']:
     fileString += '\n\n## SQG - '+sqgIdJson['name']
 
     fileString += '\n\n### Minimum acceptable score:'
+
+    severityMap = {
+        "info": "All issues are rejected",
+        "low": "Issues up to level Info allowed",
+        "medium": "Issues up to level Low allowed",
+        "high": "Issues up to level Medium allowed",
+        "critical": "Only critical issues are rejected",
+        "none": "No restrictions"
+    }
 
     # Assign SQG data
     sqgAuditScore = sqgIdJson['directives']['minimumAssessmentScores']['global']
@@ -144,28 +153,28 @@ for sqgReport in jsonResponse['processingDetails']:
                     category = categorySeverity[0]
                     severity = categorySeverity[1]
                     if category == 'authentication':
-                        severityRow = ['Authentication', 'Issues less than '+authenticationRule+' allowed', severity]
+                        severityRow = ['Authentication',severityMap[authenticationRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'authorization':
-                        severityRow = ['Authorization', 'Issues less than '+authorizationRule+' allowed', severity]
+                        severityRow = ['Authorization',severityMap[authorizationRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'transport':
-                        severityRow = ['Transport', 'Issues less than '+transportRule+' allowed', severity]
+                        severityRow = ['Transport',severityMap[transportRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'parameters':
-                        severityRow = ['Parameters', 'Issues less than '+parametersRule+' allowed', severity]
+                        severityRow = ['Parameters',severityMap[parametersRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'response_headers':
-                        severityRow = ['Response Headers', 'Issues less than '+responseHeadersRule+' allowed', severity]
+                        severityRow = ['Response Headers',severityMap[responseHeadersRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'response_definition':
-                        severityRow = ['Response Definition', 'Issues less than '+responseDefinitionRule+' allowed', severity]
+                        severityRow = ['Response Definition',severityMap[responseDefinitionRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'schema':
-                        severityRow = ['Schema', 'Issues less than '+schemaRule+' allowed', severity]
+                        severityRow = ['Schema',severityMap[schemaRule],severity]
                         severityTable.append(severityRow)
                     elif category == 'paths':
-                        severityRow = ['Paths', 'Issues less than '+pathsRule+' allowed', severity]
+                        severityRow = ['Paths',severityMap[pathsRule],severity]
                         severityTable.append(severityRow)
                     else:
                         severityRow = []
@@ -177,7 +186,7 @@ for sqgReport in jsonResponse['processingDetails']:
         fileString += '\n'+tabulate(severityTable, headers=head, tablefmt='github')
     
     if issuesList != '':
-        fileString += '\n### Forbidden issues with problem found:'
+        fileString += '\n\n### Forbidden issues with problem found:'
         fileString += issuesList
 
     fileString += '\n'
