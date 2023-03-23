@@ -352,6 +352,53 @@
         }
       }
     },
+    "/user/edit_info": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "edit user information",
+        "description": "user supplies valid token and updates all user info",
+        "operationId": "edituserinfo",
+        "requestBody": {
+          "description": "userobject",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateData"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful authentication sent user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "invalid or missing token",
+            "content": {}
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/users/search": {
       "get": {
         "tags": [
