@@ -1,7 +1,7 @@
 <img src=https://42crunch.com/wp-content/uploads/2022/02/LogoCr1.png width="200" height="57"/>
 
-# Audit SQGs - FAILED :red_circle:
-Timestamp: 2023-03-23 08:15:09
+# Security Quality Gate(s) - FAILED :red_circle:
+Timestamp: 2023-03-23 18:45:20
 
 Report: https://demolabs.42crunch.cloud/apis/9273b0fc-ab90-4325-9fcb-a6f504e07840/security-audit-report
 
@@ -10,13 +10,18 @@ Report: https://demolabs.42crunch.cloud/apis/9273b0fc-ab90-4325-9fcb-a6f504e0784
 ### Minimum acceptable score:
 | Score                 |   Current |   Minimum Acceptable |
 |-----------------------|-----------|----------------------|
-| Global score          |   55.3767 |                   75 |
-| Security score        |   20      |                   20 |
-| Data validation score |   35.3767 |                    0 |
+| Global score          |        72 |                   75 |
+| Security score        |        17 |                   20 |
+| Data validation score |        55 |                    0 |
+
+### Allowed issue security levels:
+| Category       | Threshold                         | Issues Found   |
+|----------------|-----------------------------------|----------------|
+| Authentication | Issues up to level Medium allowed | High and above |
 
 ### Forbidden issues with problem found:
-parameter-string-maxlength
-parameter-string-pattern
+minimum_assessment_score
+minimum_assessment_security_score
 
 
 ## SQG - StrictAuth
@@ -24,16 +29,18 @@ parameter-string-pattern
 ### Minimum acceptable score:
 | Score                 |   Current |   Minimum Acceptable |
 |-----------------------|-----------|----------------------|
-| Global score          |   55.3767 |                   70 |
-| Security score        |   20      |                   30 |
-| Data validation score |   35.3767 |                    0 |
+| Global score          |        72 |                   80 |
+| Security score        |        17 |                   30 |
+| Data validation score |        55 |                   50 |
 
 ### Allowed issue security levels:
 | Category            | Threshold                       | Issues Found   |
 |---------------------|---------------------------------|----------------|
-| Authentication      | Issues less than low allowed    | low            |
-| Response Definition | Issues less than medium allowed | medium         |
-| Schema              | Issues less than medium allowed | medium         |
+| Authentication      | Issues up to level Info allowed | Low and above  |
+| Response Definition | Issues up to level Info allowed | Low and above  |
+| Schema              | Issues up to level Info allowed | Low and above  |
+
 ### Forbidden issues with problem found:
-parameter-string-pattern
-parameter-string-maxlength
+minimum_assessment_score
+minimum_assessment_security_score
+v3-response-schema-undefined
