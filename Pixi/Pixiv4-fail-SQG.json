@@ -394,39 +394,35 @@
             "content": {}
           }
         }
-      },
-      "get": {
+      }
+    },
+    "/user/resetPassword": {
+      "put": {
         "tags": [
           "users"
         ],
-        "summary": "get user information",
-        "description": "user supplies valid token and receives all user info",
-        "operationId": "fetchuserinfo",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "summary": "reset password",
+        "description": "user supplies valid email and password is reset",
+        "operationId": "resetpassword",
         "responses": {
           "200": {
-            "description": "successful authentication sent user information",
+            "description": "successful password reset",
             "content": {
               "application/json": {
                 "schema": {
-                  "maxItems": 1,
-                  "minItems": 1,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersItem"
-                  }
+                  "type": "string",
+                  "example": "Password successfully reset"
                 }
               }
             }
+          },
+          "404": {
+            "description": "page not found",
+            "content": {}
+          },
+          "403": {
+            "description": "invalid or missing token",
+            "content": {}
           }
         }
       }
