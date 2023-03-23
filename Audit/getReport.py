@@ -124,17 +124,17 @@ for sqgReport in jsonResponse['processingDetails']:
     responseDefinitionRule = sqgIdJson['directives']['subcategoryRules']['dataValidation']['responseDefinition']
     schemaRule = sqgIdJson['directives']['subcategoryRules']['dataValidation']['schema']
     pathsRule = sqgIdJson['directives']['subcategoryRules']['dataValidation']['paths']
-    issueRules =  sqgIdJson['directives']['issueRules']
+    #issueRules =  sqgIdJson['directives']['issueRules']
 
     # Build audit score table
     scoreTable = []
     head = ['Score','Current','Minimum Acceptable']
 
-    scoreRow = ['Global score', auditScore, sqgAuditScore]
+    scoreRow = ['Global score', round(float(auditScore)), sqgAuditScore]
     scoreTable.append(scoreRow)
-    scoreRow = ['Security score', securityScore, sqgSecurityScore]
+    scoreRow = ['Security score', round(float(securityScore)), sqgSecurityScore]
     scoreTable.append(scoreRow)
-    scoreRow = ['Data validation score', dataScore, sqgDataScore]
+    scoreRow = ['Data validation score', round(float(dataScore)), sqgDataScore]
     scoreTable.append(scoreRow)
 
     fileString += '\n'+tabulate(scoreTable, headers=head, tablefmt='github')
@@ -144,40 +144,40 @@ for sqgReport in jsonResponse['processingDetails']:
     head = ['Category','Threshold','Issues Found']
 
     issuesList = ''
+    print(sqgReport['blockingRules'])
     for count, sqgRule in enumerate(sqgReport['blockingRules']):
-        if sqgRule not in issueRules:
-            blockingRule = sqgRule.split('/')
-            if len(blockingRule) > 1:
-                categorySeverity = blockingRule[1].split(':')
-                if len(categorySeverity) > 1:
-                    category = categorySeverity[0]
-                    severity = categorySeverity[1]
-                    if category == 'authentication':
-                        severityRow = ['Authentication',severityMap[authenticationRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'authorization':
-                        severityRow = ['Authorization',severityMap[authorizationRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'transport':
-                        severityRow = ['Transport',severityMap[transportRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'parameters':
-                        severityRow = ['Parameters',severityMap[parametersRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'response_headers':
-                        severityRow = ['Response Headers',severityMap[responseHeadersRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'response_definition':
-                        severityRow = ['Response Definition',severityMap[responseDefinitionRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'schema':
-                        severityRow = ['Schema',severityMap[schemaRule],severity]
-                        severityTable.append(severityRow)
-                    elif category == 'paths':
-                        severityRow = ['Paths',severityMap[pathsRule],severity]
-                        severityTable.append(severityRow)
-                    else:
-                        severityRow = []
+        blockingRule = sqgRule.split('/')
+        if len(blockingRule) > 1:
+            categorySeverity = blockingRule[1].split(':')
+            if len(categorySeverity) > 1:
+                category = categorySeverity[0]
+                severity = categorySeverity[1].capitalize()+' and above'
+                if category == 'authentication':
+                    severityRow = ['Authentication',severityMap[authenticationRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'authorization':
+                    severityRow = ['Authorization',severityMap[authorizationRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'transport':
+                    severityRow = ['Transport',severityMap[transportRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'parameters':
+                    severityRow = ['Parameters',severityMap[parametersRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'response_headers':
+                    severityRow = ['Response Headers',severityMap[responseHeadersRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'response_definition':
+                    severityRow = ['Response Definition',severityMap[responseDefinitionRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'schema':
+                    severityRow = ['Schema',severityMap[schemaRule],severity]
+                    severityTable.append(severityRow)
+                elif category == 'paths':
+                    severityRow = ['Paths',severityMap[pathsRule],severity]
+                    severityTable.append(severityRow)
+                else:
+                    severityRow = []
         else:
             issuesList += '\n'+sqgRule
 
