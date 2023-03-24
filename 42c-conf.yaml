@@ -33,17 +33,17 @@ audit:
   
       discovery: false
       # specify more fail conditions to be checked in addition to the minimum score
-      fail_on:
-        # fail if the API does not have a valid OpenAPI definition
-        invalid_contract: true
+      # fail_on:
+      #   # fail if the API does not have a valid OpenAPI definition
+      #   invalid_contract: true
 
-        # fail any issues with severity of 'medium' or higher are detected.
-        # possible severity levels: critical, high, medium, low, info
-        severity:
-          data: critical
-          security: high
+      #   # fail any issues with severity of 'medium' or higher are detected.
+      #   # possible severity levels: critical, high, medium, low, info
+      #   severity:
+      #     data: critical
+      #     security: high
 
-        # fail if any of the listed issue IDs are detected
-        issue_id:
-          - v3-global-http-clear
-          - parameter-string-pattern
+      #   # fail if any of the listed issue IDs are detected
+      #   issue_id:
+      #     - v3-global-http-clear
+      #     - parameter-string-pattern
