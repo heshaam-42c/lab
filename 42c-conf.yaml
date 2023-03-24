@@ -50,3 +50,5 @@ audit:
     NewFeature1:
       mapping:
         Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
+      
+      discovery: false
