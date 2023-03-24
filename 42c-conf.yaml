@@ -5,3 +5,21 @@ audit:
         Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
   
       discovery: false
+      # specify more fail conditions to be checked in addition to the minimum score
+      # fail_on:
+      #   # fail if the API does not have a valid OpenAPI definition
+      #   invalid_contract: true
+
+      #   # fail any issues with severity of 'medium' or higher are detected.
+      #   # possible severity levels: critical, high, medium, low, info
+      #   severity:
+      #     data: critical
+      #     security: high
+
+      #   # fail if any of the listed issue IDs are detected
+      #   issue_id:
+      #     - v3-global-http-clear
+      #     - parameter-string-pattern
+    NewFeature1:
+      mapping:
+        Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
