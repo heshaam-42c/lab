@@ -29,8 +29,6 @@ jobs:
 
       - name: Commit files
         run: |
-          git config --global user.email ${{github.event.pusher.email}}
-          git config --global user.name ${{ github.actor }}
           git config --local user.name  ${{ github.actor }}
           git add ./Audit/report.rtf
           git commit -m "Updating the repository GitHub audit report.rtf"
