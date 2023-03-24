@@ -181,7 +181,7 @@ for sqgReport in jsonResponse['processingDetails']:
             issuesList += '\n'+sqgRule
 
     if len(severityTable) > 0:
-        fileString += '\n### Allowed issue security levels:'
+        fileString += '\n### Allowed issue severity levels:'
         fileString += '\n'+tabulate(severityTable, headers=head, tablefmt='github')
     
     if issuesList != '':
