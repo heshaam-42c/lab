@@ -1,22 +1,17 @@
 {
-  "openapi": "3.0.1",
+  "swagger": "2.0",
   "info": {
-    "title": "Pixi App API",
     "description": "Pixi Photo Sharing API",
+    "version": "1.0.0",
+    "title": "Pixi App API",
     "contact": {
       "email": "nicole.becher@owasp.org"
     },
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "Pixiv4-JWT-Validation"
-  },
-  "servers": [
-    {
-      "url": "https://photo-demo.westeurope.cloudapp.azure.com/api"
     }
-  ],
+  },
   "tags": [
     {
       "name": "admins",
@@ -32,841 +27,399 @@
     }
   ],
   "paths": {
-    "/user/register": {
+    "/api/login": {
+      "post": {
+        "tags": [
+          "anyone"
+        ],
+        "summary": "login successfully and receive json web token.",
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "user",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "pass",
+            "type": "string",
+            "format": "password",
+            "required": true
+          }
+        ],
+        "operationId": "authenticate",
+        "description": "user supplies user name and password and receives a json web token",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string",
+                  "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})"
+                }
+              },
+              "required": [
+                "message",
+                "token"
+              ]
+            }
+          },
+          "202": {
+            "description": "successfully request, but invalid password",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          },
+          "422": {
+            "description": "missing parameters"
+          }
+        },
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/api/register": {
       "post": {
         "tags": [
           "anyone"
         ],
         "summary": "register for an account and receive token",
-        "description": "user supplies email and password to register and receives a json web token.",
         "operationId": "register",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRegistrationData"
-              }
+        "description": "user supplies email and password to register and receives a json web token.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegistrationData"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "successfully registered, token received",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "message": {
-                      "maxLength": 255,
-                      "minLength": 1,
-                      "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-                      "type": "string"
-                    },
-                    "token": {
-                      "maxLength": 1000,
-                      "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-                      "type": "string"
-                    }
-                  }
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string",
+                  "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})"
                 }
               }
             }
           },
           "202": {
             "description": "email address already registered",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
                 }
               }
             }
           }
         },
-        "x-42c-local-strategy": {
-          "x-42c-strategy": {
-            "protections": [
-              {
-                "x-42c-set-client-ip_0.1": {
-                  "ip.header.name": "X-Forwarded-For",
-                  "ip.header.mandatory": true,
-                  "remote.ip.allowlist": []
-                }
-              },
-              {
-                "x-42c-request-limiter_0.1": {
-                  "hits": 3,
-                  "window": 20,
-                  "add.retry_after": true,
-                  "key": "req_limiter_register"
-                }
-              }
-            ]
-          }
-        },
-        "x-42c-no-authentication": true
+        "consumes": [
+          "application/json"
+        ]
       }
     },
-    "/user/login": {
-      "post": {
-        "tags": [
-          "anyone"
-        ],
-        "summary": "login successfully and receive json web token.",
-        "description": "user supplies user name and password and receives a json web token",
-        "operationId": "authenticate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              
-              "schema": {
-                "additionalProperties": false,
-                "required": [
-                  "pass",
-                  "user"
-                ],
-                "type": "object",
-                "properties": {
-                  "user": {
-                    "maxLength": 68,
-                    "minLength": 5,
-                    "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-                    "type": "string",
-                    "format": "email",
-                    "example": "foo@test.com",
-                    "x-42c-sample": "foo@test.com",
-                    "x-42c-format": "o:standard:email"
-                  },
-                  "pass": {
-                    "maxLength": 64,
-                    "minLength": 8,
-                    "pattern": "^[a-zA-Z0-9&@#!?]{8,64}$",
-                    "type": "string",
-                    "format": "password",
-                    "example": "mygood2!pass",
-                    "x-42c-sample": "mygood2!pass",
-                    "x-42c-format": "o:standard:password"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "required": [
-                    "message",
-                    "token"
-                  ],
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "message": {
-                      "maxLength": 255,
-                      "minLength": 1,
-                      "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-                      "type": "string"
-                    },
-                    "token": {
-                      "maxLength": 1000,
-                      "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            },
-            "x-42c-local-strategy": {
-              "x-42c-strategy": {
-                "protections": [
-                  {
-                    "x-42c-security-headers_0.1": {
-                      "hsts.max_age": 15400,
-                      "csp.policy": "default-src: 'self'; upgrade-insecure-requests; block-all-mixed-content"
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "202": {
-            "description": "successful request, but invalid password",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "missing parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          }
-        },
-        "x-42c-local-strategy": {
-          "x-42c-strategy": {
-            "protections": [
-              {
-                "x-42c-set-client-ip_0.1": {
-                  "ip.header.name": "X-Forwarded-For",
-                  "ip.header.mandatory": true,
-                  "remote.ip.allowlist": []
-                }
-              },
-              {
-                "x-42c-request-limiter_0.1": {
-                  "hits": 3,
-                  "window": 6,
-                  "add.retry_after": true,
-                  "key": "req_limiter_login"
-                }
-              }
-            ]
-          }
-        },
-        "x-42c-no-authentication": true
-      }
-    },
-    "/user/info": {
+    "/api/user/info": {
       "get": {
         "tags": [
           "users"
         ],
         "summary": "get user information",
-        "description": "user supplies valid token and receives all user info",
         "operationId": "userinfo",
+        "description": "user supplies valid token and receives all user info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "Users JWT Token",
+            "required": true,
+            "type": "string",
+            "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})"
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful authentication sent user information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "maxItems": 1,
-                  "minItems": 1,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersItem"
-                  }
-                }
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UsersItem"
               }
             }
           },
           "403": {
             "description": "invalid or missing token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "message": {
-                      "maxLength": 255,
-                      "minLength": 1,
-                      "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-                      "type": "string"
-                    },
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "success": {
+                  "type": "boolean"
                 }
               }
             }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "access-token": []
-          }
-        ],
-        "x-42c-local-strategy": {
-          "x-42c-strategy": {
-            "protections": [
-              {
-                "x-42c-set-client-ip_0.1": {
-                  "ip.header.name": "X-Forwarded-For",
-                  "ip.header.mandatory": true,
-                  "remote.ip.allowlist": []
-                }
-              },
-              {
-                "x-42c-request-limiter_0.1": {
-                  "hits": 5,
-                  "window": 10,
-                  "add.retry_after": true,
-                  "key": "req_limiter_get_info"
-                }
-              },
-              {
-                "x-42c-jwt-validation-rsa_0.2": {
-                  "header.name": "x-access-token",
-                  "lifetime": 600,
-                  "jp.jose.header.schema": "#/x-42c-components/x-42c-schemas/jose-header",
-                  "jp.claims.schema": "#/x-42c-components/x-42c-schemas/jwt-claims"
-                }
-              }
-            ]
           }
         }
       }
     },
-    "/user/edit_info": {
+    "/api/user/edit_info": {
       "put": {
         "tags": [
           "users"
         ],
         "summary": "edit user information",
-        "description": "user supplies valid token and updates all user info",
         "operationId": "edituserinfo",
-        "requestBody": {
-          "description": "userobject",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserUpdateData"
-              }
+        "description": "user supplies valid token and updates all user info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "userobject",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegistrationData"
             }
           },
-          "required": true
-        },
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "type": "string",
+            "required": true,
+            "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})"
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful authentication sent user information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
                 }
-              }
+              },
+              "required": [
+                "message"
+              ]
             }
           },
-          "404": {
-            "description": "page not found",
-            "content": {}
-          },
           "403": {
-            "description": "invalid or missing token",
-            "content": {}
+            "description": "invalid or missing token"
           }
-        }
+        },
+        "consumes": [
+          "application/json"
+        ]
       }
     },
-    "/user/resetPassword": {
-      "put": {
-        "tags": [
-          "users"
-        ],
-        "summary": "reset password",
-        "description": "user supplies valid email and password is reset",
-        "operationId": "resetpassword",
-        "responses": {
-          "200": {
-            "description": "successful password reset",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "example": "Password successfully reset"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "page not found",
-            "content": {}
-          },
-          "403": {
-            "description": "invalid or missing token",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/admin/users/search": {
+    "/api/admin/users/search": {
       "get": {
         "tags": [
           "admins"
         ],
         "summary": "search for a specific user",
         "description": "search for a specific user",
-        "operationId": "userSearch",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "x-access-token",
             "in": "header",
+            "name": "x-access-token",
+            "type": "string",
             "required": true,
-            "schema": {
-              "maxLength": 1000,
-              "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-              "type": "string"
-            }
+            "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})"
           },
           {
-            "name": "search",
             "in": "query",
+            "name": "search",
+            "type": "string",
             "description": "search query ?search=xxx",
-            "required": true,
-            "schema": {
-              "maxLength": 100,
-              "pattern": "^[\\w\\s\\.@=]{1,100}$",
-              "type": "string"
-            }
+            "required": true
           }
         ],
         "responses": {
           "200": {
             "description": "successful authentication user photo json object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "maxItems": 50,
-                  "minItems": 0,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersItem"
-                  }
-                }
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UsersItem"
               }
             }
           },
           "403": {
-            "description": "invalid or missing token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
+            "description": "invalid or missing token"
+          }
+        },
+        "operationId": "search for a specific user"
+      }
+    },
+    "/api/admin/all_users": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UsersItem"
               }
             }
           },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
+          "403": {
+            "description": "No token provided or invalid token."
           }
         },
-        "security": [
-          {
-            "access-token": []
-          }
-        ]
-      }
-    },
-    "/admin/all_users": {
-      "get": {
         "tags": [
           "admins"
         ],
-        "summary": "Returns the list of ALL users. Must be admin to call.",
-        "description": "Returns the list of ALL users. Must be admin to call.",
-        "operationId": "adminallusers",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "x-access-token",
             "in": "header",
+            "name": "x-access-token",
+            "type": "string",
             "required": true,
-            "schema": {
-              "maxLength": 1000,
-              "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-              "type": "string"
-            }
+            "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "List Users",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "maxItems": 10,
-                  "minItems": 1,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersListItem"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "No token provided or invalid token.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsersListItem"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "access-token": []
-          }
-        ]
+        "summary": "Returns the list of ALL users. Must be admin to call.",
+        "description": "Returns the list of ALL users. Must be admin to call.",
+        "operationId": "adminallusers"
       }
     }
   },
-  "components": {
-    "schemas": {
-      "ErrorMessage": {
-        "required": [
-          "message"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "message": {
-            "maxLength": 255,
-            "minLength": 1,
-            "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-            "type": "string"
-          }
-        }
-      },
-      "UsersItem": {
-        "required": [
-          "email",
-          "password",
-          "name",
-          "_id",
-          "is_admin",
-          "account_balance",
-          "onboarding_date"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "_id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "DD68C630-3CCB-4FD0-9C5B-A0A34C952681",
-            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
-            "minLength": 36,
-            "maxLength": 36,
-            "x-42c-format": "o:standard:uuid"
-          },
-          "email": {
-            "maxLength": 68,
-            "minLength": 5,
-            "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-            "type": "string",
-            "format": "email",
-            "example": "email@email.com",
-            "x-42c-format": "o:standard:email"
-          },
-          "password": {
-            "maxLength": 64,
-            "minLength": 8,
-            "pattern": "^[\\w&@#!?]{8,64}$",
-            "type": "string",
-            "format": "string",
-            "example": "p@ssword1"
-          },
-          "name": {
-            "maxLength": 50,
-            "minLength": 5,
-            "pattern": "(^[\\w\\s\\.]{5,50}$)",
-            "type": "string",
-            "example": "Johnny Appleseed"
-          },
-          "is_admin": {
-            "type": "boolean",
-            "description": "is admin"
-          },
-          "account_balance": {
-            "maximum": 1000,
-            "minimum": -50,
-            "type": "number",
-            "description": "remaining balance",
-            "format": "float"
-          },
-          "onboarding_date": {
-            "type": "string",
-            "maxLength": 25,
-            "format": "date-time"
-          },
-          "all_pictures": {
-            "maxItems": 100,
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "picUUID": {
-                  "type": "string",
-                  "pattern": "^example-[0-9a-z]+$",
-                  "maxLength": 32
-                }
-              }
-            }
-          }
-        }
-      },
-      "UsersListItem": {
-        "required": [
-          "email",
-          "name"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "_id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "DD68C630-3CCB-4FD0-9C5B-A0A34C952681",
-            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
-            "minLength": 36,
-            "maxLength": 36,
-            "x-42c-format": "o:standard:uuid"
-          },
-          "pic": {
-            "maxLength": 200,
-            "minLength": 0,
-            "pattern": "(\\w+:(\\/?\\/?)[^\\s]+)",
-            "type": "string",
-            "format": "uri"
-          },
-          "email": {
-            "maxLength": 68,
-            "minLength": 5,
-            "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-            "type": "string",
-            "format": "email",
-            "example": "email@email.com",
-            "x-42c-format": "o:standard:email"
-          },
-          "name": {
-            "maxLength": 50,
-            "minLength": 5,
-            "pattern": "(^[\\w\\s\\.]{5,50}$)",
-            "type": "string",
-            "example": "Johnny Appleseed"
-          },
-          "account_balance": {
-            "maximum": 1000,
-            "minimum": -50,
-            "type": "number",
-            "description": "remaining balance",
-            "format": "float"
-          }
-        }
-      },
-      "UserUpdateData": {
-        "required": [
-          "email",
-          "name"
-        ],
-        "type": "object",
-        "additionalProperties": true,
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "account_balance": {
-            "type": "number"
-          }
-        }
-      },
-      "UserRegistrationData": {
-        "required": [
-          "account_balance",
-          "is_admin",
-          "name",
-          "pass",
-          "user"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "user": "foo@test.com",
-          "pass": "mygood2!pass",
-          "name": "PixiUser",
-          "is_admin": false,
-          "account_balance": 150
+  "definitions": {
+    "UsersItem": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "number",
+          "format": "number",
+          "example": 1
         },
-        "properties": {
-          "user": {
-            "maxLength": 68,
-            "minLength": 5,
-            "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-            "type": "string",
-            "format": "email",
-            "x-42c-format": "o:standard:email"
-          },
-          "pass": {
-            "maxLength": 64,
-            "minLength": 8,
-            "pattern": "^[\\w&@#!?]{8,64}$",
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 30,
-            "minLength": 5,
-            "pattern": "^[\\w\\s\\.]{5,30}$",
-            "type": "string"
-          },
-          "is_admin": {
-            "type": "boolean"
-          },
-          "account_balance": {
-            "maximum": 1000,
-            "minimum": -50,
-            "type": "number",
-            "format": "float"
-          }
+        "pic": {
+          "type": "string",
+          "format": "uri",
+          "example": 1
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "email@email.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "string",
+          "example": "p@ssword1"
+        },
+        "name": {
+          "type": "string",
+          "example": "Johnny Appleseed"
+        },
+        "is_admin": {
+          "description": "is admin",
+          "type": "boolean"
+        },
+        "account_balance": {
+          "description": "remaining balance",
+          "type": "number"
         }
       }
     },
-    "securitySchemes": {
-      "access-token": {
-        "type": "apiKey",
-        "description": "Most operations need to pass a user token retrieved calling /api/login",
-        "name": "x-access-token",
-        "in": "header"
+    "UserRegistrationData": {
+      "type": "object",
+      "required": [
+        "id",
+        "user",
+        "pass",
+        "name",
+        "is_admin",
+        "account_balance"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "user": {
+          "type": "string",
+          "format": "email",
+          "minLength": 10,
+          "maxLength": 50
+        },
+        "pass": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 12
+        },
+        "name": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 30
+        },
+        "is_admin": {
+          "type": "boolean"
+        },
+        "account_balance": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 1000
+        }
       }
     }
   },
-  "x-42c-components": {
-    "x-42c-schemas": {
-      "jose-header": {
-        "type": "object",
-        "properties": {
-          "alg": {
-            "type": "string",
-            "enum": [
-              "RS384"
-            ]
-          },
-          "typ": {
-            "type": "string",
-            "enum": [
-              "JWT"
-            ]
-          }
-        },
-        "required": [
-          "alg",
-          "typ"
-        ],
-        "additionalProperties": false
-      },
-      "jwt-claims": {
-        "type": "object",
-        "properties": {
-          "iat": {
-            "type": "number"
-          },
-          "exp": {
-            "type": "number"
-          },
-          "sub": {
-            "type": "string",
-            "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
-            "maxLength": 128,
-            "minLength": 8
-          },
-          "aud": {
-            "type": "string",
-            "enum": [
-              "pixi.42crunch.com",
-              "pixiUsers"
-            ]
-          },
-          "iss": {
-            "type": "string",
-            "enum": [
-              "https://42c-demo",
-              "https://42crunch.com"
-            ]
-          },
-          "user_profile": {
-            "$ref": "#/components/schemas/UsersItem"
-          },
-          "cid": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9]+$",
-            "maxLength": 50
-          },
-          "jti": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9\\-_]+$",
-            "maxLength": 50
-          }
-        },
-        "required": [
-          "iat",
-          "user_profile",
-          "iss",
-          "aud",
-          "sub",
-          "exp"
-        ],
-        "additionalProperties": false
-      }
-    }
-  }
+  "host": "pixiapp.42crunch-cloud.com:8090",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "application/json"
+  ]
 }

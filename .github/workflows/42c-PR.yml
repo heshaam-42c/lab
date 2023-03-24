@@ -1,3 +1,5 @@
+name: 42Crunch SQG Report
+
 on: pull_request
 
 jobs:
