@@ -402,7 +402,7 @@
           "users"
         ],
         "summary": "reset password",
-        "description": "user supplies valid email to reset password",
+        "description": "user supplies valid email and password is reset",
         "operationId": "resetpassword",
         "responses": {
           "200": {
