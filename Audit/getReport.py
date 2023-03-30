@@ -92,7 +92,7 @@ fileString += '\nTimestamp: '+str(datetime.fromtimestamp(int(jsonResponse['date'
 
 fileString += '\n\n[<kbd> <br> Report <br> </kbd>][Link]'
 
-fileString += '\n\n[Link]: https://demolabs.42crunch.cloud/apis/9273b0fc-ab90-4325-9fcb-a6f504e07840/security-audit-report'
+fileString += '\n\n[Link]: https://demolabs.42crunch.cloud/apis/'+uuid+'/security-audit-report'
 
 # Build summary report table
 for sqgReport in jsonResponse['processingDetails']:
