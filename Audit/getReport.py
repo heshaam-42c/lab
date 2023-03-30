@@ -180,6 +180,7 @@ for sqgReport in jsonResponse['processingDetails']:
                 else:
                     severityRow = []
         else:
+            # Print forbidden issues
             issuesList += '\n'+sqgRule
 
     if len(severityTable) > 0:
