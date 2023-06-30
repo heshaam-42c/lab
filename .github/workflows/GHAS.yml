@@ -28,3 +28,4 @@ jobs:
           min-score: 85
           platform-url: https://demolabs.42crunch.cloud
           upload-to-code-scanning: true
+          sarif-report: 'audit-report.sarif'
