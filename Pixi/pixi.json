@@ -1,781 +1,963 @@
 {
-  "openapi": "3.0.1",
   "info": {
-    "title": "Pixi App API",
-    "description": "Pixi Photo Sharing API",
-    "contact": {
-      "email": "nicole.becher@owasp.org"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "Pixiv4-JWT-Validation"
+      "title": "vAPI",
+      "version": "1.0.0",
+      "description": "vAPI is Vulnerable Adversely Programmed Interface which is Self-Hostable API Interface that mimics OWASP API Top 10 scenarios in the means of Exercises."
   },
-  "servers": [
-    {
-      "url": "https://photo-demo.westeurope.cloudapp.azure.com/api"
-    }
-  ],
   "tags": [
-    {
-      "name": "admins",
-      "description": "Secured Admin-only calls"
-    },
-    {
-      "name": "users",
-      "description": "Operations available to regular, logged in users"
-    },
-    {
-      "name": "anyone",
-      "description": "Operations available to anyone"
-    }
+      {
+          "name": "API1",
+          "description": "Broken Object Level Authorization\r\n\r\nYou can register yourself as a User , Thats it ....or is there something more?"
+      },
+      {
+          "name": "API2",
+          "description": "Broken Authentication\r\n\r\nWe don't seem to have credentials for this , How do we login? (There's something in the Resources Folder given to you )"
+      },
+      {
+          "name": "API3",
+          "description": "Excessive Data Exposure\r\n\r\nWe have all been there , right? Giving away too much data and the Dev showing it . Try the Android App in the Resources folder"
+      },
+      {
+          "name": "API4",
+          "description": "Lack of Resources & Rate Limiting\r\n\r\nWe believe OTPs are a great way of authenticating users and secure too if implemented correctly!"
+      },
+      {
+          "name": "API5",
+          "description": "Broken Function Level Authorization\r\n\r\nYou can register yourself as a User. Thats it or is there something more? (I heard admin logins often but uses different route)"
+      },
+      {
+          "name": "API6",
+          "description": "Mass Assignment\r\n\r\nWelcome to our store , We will give you credits if you behave nicely. Our credit management is super secure"
+      },
+      {
+          "name": "API7",
+          "description": "Security Misconfiguration\r\n\r\nHey , its an API right? so we ARE expecting Cross Origin Requests . We just hope it works fine."
+      },
+      {
+          "name": "API8",
+          "description": "Injection\r\n\r\nI think you won't get credentials for this.You can try to login though."
+      },
+      {
+          "name": "API9",
+          "description": "Improper Assets Management\r\n\r\nHey Good News!!!!! We just launched our v2 API :)"
+      },
+      {
+          "name": "API9 > v2"
+      },
+      {
+          "name": "API10",
+          "description": "Nothing has been logged or monitored , You caught us :( !"
+      },
+      {
+          "name": "Arena"
+      },
+      {
+          "name": "Arena > JustWeakToken"
+      },
+      {
+          "name": "Arena > ServerSurfer"
+      },
+      {
+          "name": "Arena > StickyNotes"
+      }
   ],
   "paths": {
-    "/user/register": {
-      "post": {
-        "tags": [
-          "anyone"
-        ],
-        "summary": "register for an account and receive token",
-        "description": "user supplies email and password to register and receives a json web token.",
-        "operationId": "register",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRegistrationData"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "successfully registered, token received",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "message": {
-                      "maxLength": 255,
-                      "minLength": 1,
-                      "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-                      "type": "string"
-                    },
-                    "token": {
-                      "maxLength": 1000,
-                      "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-                      "type": "string"
-                    }
+      "/vapi/jwt/user": {
+          "get": {
+              "tags": [
+                  "Arena > JustWeakToken"
+              ],
+              "summary": "Get User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
                   }
-                }
-              }
-            }
-          },
-          "202": {
-            "description": "email address already registered",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          }
-        },
-        "x-42c-local-strategy": {
-          "x-42c-strategy": {
-            "protections": [
-              {
-                "x-42c-set-client-ip_0.1": {
-                  "ip.header.name": "X-Forwarded-For",
-                  "ip.header.mandatory": true,
-                  "remote.ip.allowlist": []
-                }
               },
-              {
-                "x-42c-request-limiter_0.1": {
-                  "hits": 3,
-                  "window": 20,
-                  "add.retry_after": true,
-                  "key": "req_limiter_register"
-                }
-              }
-            ]
-          }
-        },
-        "x-42c-no-authentication": true
-      }
-    },
-    "/user/login": {
-      "post": {
-        "tags": [
-          "anyone"
-        ],
-        "summary": "login successfully and receive json web token.",
-        "description": "user supplies user name and password and receives a json web token",
-        "operationId": "authenticate",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              
-              "schema": {
-                "additionalProperties": false,
-                "required": [
-                  "pass",
-                  "user"
-                ],
-                "type": "object",
-                "properties": {
-                  "user": {
-                    "maxLength": 68,
-                    "minLength": 5,
-                    "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-                    "type": "string",
-                    "format": "email",
-                    "example": "foo@test.com",
-                    "x-42c-sample": "foo@test.com",
-                    "x-42c-format": "o:standard:email"
-                  },
-                  "pass": {
-                    "maxLength": 64,
-                    "minLength": 8,
-                    "pattern": "^[a-zA-Z0-9&@#!?]{8,64}$",
-                    "type": "string",
-                    "format": "password",
-                    "example": "mygood2!pass",
-                    "x-42c-sample": "mygood2!pass",
-                    "x-42c-format": "o:standard:password"
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "required": [
-                    "message",
-                    "token"
-                  ],
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "message": {
-                      "maxLength": 255,
-                      "minLength": 1,
-                      "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-                      "type": "string"
-                    },
-                    "token": {
-                      "maxLength": 1000,
-                      "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            },
-            "x-42c-local-strategy": {
-              "x-42c-strategy": {
-                "protections": [
+              "parameters": [
                   {
-                    "x-42c-security-headers_0.1": {
-                      "hsts.max_age": 15400,
-                      "csp.policy": "default-src: 'self'; upgrade-insecure-requests; block-all-mixed-content"
-                    }
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  },
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{justweaktoken}}"
                   }
-                ]
-              }
-            }
+              ]
           },
-          "202": {
-            "description": "successful request, but invalid password",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "missing parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          }
-        },
-        "x-42c-local-strategy": {
-          "x-42c-strategy": {
-            "protections": [
-              {
-                "x-42c-set-client-ip_0.1": {
-                  "ip.header.name": "X-Forwarded-For",
-                  "ip.header.mandatory": true,
-                  "remote.ip.allowlist": []
-                }
+          "post": {
+              "tags": [
+                  "Arena > JustWeakToken"
+              ],
+              "summary": "Create User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
               },
-              {
-                "x-42c-request-limiter_0.1": {
-                  "hits": 3,
-                  "window": 6,
-                  "add.retry_after": true,
-                  "key": "req_limiter_login"
-                }
-              }
-            ]
-          }
-        },
-        "x-42c-no-authentication": true
-      }
-    },
-    "/user/info": {
-      "get": {
-        "tags": [
-          "users"
-        ],
-        "summary": "get user information",
-        "description": "user supplies valid token and receives all user info",
-        "operationId": "userinfo",
-        "responses": {
-          "200": {
-            "description": "successful authentication sent user information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "maxItems": 1,
-                  "minItems": 1,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersItem"
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
                   }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "invalid or missing token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "message": {
-                      "maxLength": 255,
-                      "minLength": 1,
-                      "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-                      "type": "string"
-                    },
-                    "success": {
-                      "type": "boolean"
-                    }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
                   }
-                }
               }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
           }
-        },
-        "security": [
-          {
-            "access-token": []
-          }
-        ],
-        "x-42c-local-strategy": {
-          "x-42c-strategy": {
-            "protections": [
-              {
-                "x-42c-set-client-ip_0.1": {
-                  "ip.header.name": "X-Forwarded-For",
-                  "ip.header.mandatory": true,
-                  "remote.ip.allowlist": []
-                }
+      },
+      "/vapi/api1/user": {
+          "post": {
+              "tags": [
+                  "API1"
+              ],
+              "summary": "Create User",
+              "security": [
+                  {
+                      "noauthAuth": []
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
               },
-              {
-                "x-42c-request-limiter_0.1": {
-                  "hits": 5,
-                  "window": 10,
-                  "add.retry_after": true,
-                  "key": "req_limiter_get_info"
-                }
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  },
+                  {
+                      "in": "header",
+                      "name": "Accept",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\": \\\"\\\",\\r\\n    \\\"name\\\": \\\"\\\",\\r\\n    \\\"course\\\": \\\"\\\",\\r\\n    \\\"password\\\": \\\"\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api3/user": {
+          "post": {
+              "tags": [
+                  "API3"
+              ],
+              "summary": "Create User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
               },
-              {
-                "x-42c-jwt-validation-rsa_0.2": {
-                  "header.name": "x-access-token",
-                  "lifetime": 600,
-                  "jp.jose.header.schema": "#/x-42c-components/x-42c-schemas/jose-header",
-                  "jp.claims.schema": "#/x-42c-components/x-42c-schemas/jwt-claims"
-                }
-              }
-            ]
-          }
-        }
-      }
-    },
-    "/admin/users/search": {
-      "get": {
-        "tags": [
-          "admins"
-        ],
-        "summary": "search for a specific user",
-        "description": "search for a specific user",
-        "operationId": "userSearch",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "maxLength": 1000,
-              "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "description": "search query ?search=xxx",
-            "required": true,
-            "schema": {
-              "maxLength": 100,
-              "pattern": "^[\\w\\s\\.@=]{1,100}$",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful authentication user photo json object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "maxItems": 50,
-                  "minItems": 0,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersItem"
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
                   }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "invalid or missing token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "access-token": []
-          }
-        ]
-      }
-    },
-    "/admin/all_users": {
-      "get": {
-        "tags": [
-          "admins"
-        ],
-        "summary": "Returns the list of ALL users. Must be admin to call.",
-        "description": "Returns the list of ALL users. Must be admin to call.",
-        "operationId": "adminallusers",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "maxLength": 1000,
-              "pattern": "^([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_=]{4,})\\.([a-zA-Z0-9_\\-\\+\\/=]{4,})",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List Users",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "maxItems": 10,
-                  "minItems": 1,
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UsersListItem"
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\",\\r\\n    \\\"name\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
                   }
-                }
               }
-            }
-          },
-          "403": {
-            "description": "No token provided or invalid token.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UsersListItem"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorMessage"
-                }
-              }
-            }
           }
-        },
-        "security": [
-          {
-            "access-token": []
+      },
+      "/vapi/api4/user": {
+          "get": {
+              "tags": [
+                  "API4"
+              ],
+              "summary": "Get Details",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api4_key}}"
+                  },
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ]
           }
-        ]
+      },
+      "/vapi/api5/user": {
+          "post": {
+              "tags": [
+                  "API5"
+              ],
+              "summary": "Create User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"testuser2\\\",\\r\\n    \\\"password\\\":\\\"test123\\\",\\r\\n    \\\"name\\\":\\\"Test User\\\",\\r\\n    \\\"address\\\":\\\"ABC\\\",\\r\\n    \\\"mobileno\\\":\\\"888888888\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api6/user": {
+          "post": {
+              "tags": [
+                  "API6"
+              ],
+              "summary": "Create User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"name\\\":\\\"\\\",\\r\\n    \\\"username\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api7/user": {
+          "post": {
+              "tags": [
+                  "API7"
+              ],
+              "summary": "Create User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api4/login": {
+          "post": {
+              "tags": [
+                  "API4"
+              ],
+              "summary": "Mobile Login",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"mobileno\\\":\\\"8000000535\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/stickynotes": {
+          "get": {
+              "tags": [
+                  "Arena > StickyNotes"
+              ],
+              "summary": "Get Notes",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "query",
+                      "name": "format",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "html"
+                  }
+              ]
+          },
+          "post": {
+              "tags": [
+                  "Arena > StickyNotes"
+              ],
+              "summary": "Store a Note",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\n    \\\"note\\\":\\\"Hello I am Tushar\\\"\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api6/user/me": {
+          "get": {
+              "tags": [
+                  "API6"
+              ],
+              "summary": "Get User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api6_auth}}"
+                  }
+              ]
+          }
+      },
+      "/vapi/serversurfer": {
+          "get": {
+              "tags": [
+                  "Arena > ServerSurfer"
+              ],
+              "summary": "Get Data",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "query",
+                      "name": "url",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "https://roottusk.com"
+                  }
+              ]
+          }
+      },
+      "/vapi/api7/user/key": {
+          "get": {
+              "tags": [
+                  "API7"
+              ],
+              "summary": "Get Key",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ]
+          }
+      },
+      "/vapi/api10/user/flag": {
+          "get": {
+              "tags": [
+                  "API10"
+              ],
+              "summary": "Get Flag",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "description": "I am not kidding!"
+          }
+      },
+      "/vapi/api2/user/login": {
+          "post": {
+              "tags": [
+                  "API2"
+              ],
+              "summary": "User Login",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"email\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api4/otp/verify": {
+          "post": {
+              "tags": [
+                  "API4"
+              ],
+              "summary": "Verify OTP",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"otp\\\":\\\"9999\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api7/user/login": {
+          "get": {
+              "tags": [
+                  "API7"
+              ],
+              "summary": "User Login",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api7_auth}}"
+                  },
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ]
+          }
+      },
+      "/vapi/api8/user/login": {
+          "post": {
+              "tags": [
+                  "API8"
+              ],
+              "summary": "User Login",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api7/user/logout": {
+          "get": {
+              "tags": [
+                  "API7"
+              ],
+              "summary": "User Logout",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ]
+          }
+      },
+      "/vapi/api8/user/secret": {
+          "get": {
+              "tags": [
+                  "API8"
+              ],
+              "summary": "Get Secret",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api8_auth}}"
+                  }
+              ]
+          }
+      },
+      "/vapi/api2/user/details": {
+          "get": {
+              "tags": [
+                  "API2"
+              ],
+              "summary": "Get Details",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api2_auth}}"
+                  }
+              ]
+          }
+      },
+      "/vapi/api9/v2/user/login": {
+          "post": {
+              "tags": [
+                  "API9 > v2"
+              ],
+              "summary": "Login",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"richardbranson\\\",\\r\\n    \\\"pin\\\":\\\"****\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api1/user/{api1_id}": {
+          "get": {
+              "tags": [
+                  "API1"
+              ],
+              "summary": "Get User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api1_auth}}"
+                  },
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  },
+                  {
+                      "in": "path",
+                      "name": "api1_id",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "required": true
+                  }
+              ]
+          },
+          "put": {
+              "tags": [
+                  "API1"
+              ],
+              "summary": "Update User",
+              "security": [
+                  {
+                      "noauthAuth": []
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api1_auth}}"
+                  },
+                  {
+                      "in": "header",
+                      "name": "Content-Type",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "application/json"
+                  },
+                  {
+                      "in": "path",
+                      "name": "api1_id",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "required": true
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "*/*": {
+                          "schema": {
+                              "type": "string",
+                              "example": "\"{\\r\\n    \\\"username\\\":\\\"\\\",\\r\\n    \\\"name\\\":\\\"\\\",\\r\\n    \\\"course\\\":\\\"\\\",\\r\\n    \\\"password\\\":\\\"\\\"\\r\\n}\""
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/vapi/api5/user/{api5_id}": {
+          "get": {
+              "tags": [
+                  "API5"
+              ],
+              "summary": "Get User",
+              "responses": {
+                  "200": {
+                      "content": {
+                          "application/json": {}
+                      },
+                      "description": "Successful response"
+                  }
+              },
+              "parameters": [
+                  {
+                      "in": "header",
+                      "name": "Authorization-Token",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "example": "{{api5_auth}}"
+                  },
+                  {
+                      "in": "path",
+                      "name": "api5_id",
+                      "schema": {
+                          "type": "string"
+                      },
+                      "required": true
+                  }
+              ]
+          }
       }
-    }
   },
+  "openapi": "3.0.0",
+  "servers": [
+      {
+          "url": "http://164.92.118.240"
+      }
+  ],
   "components": {
-    "schemas": {
-      "ErrorMessage": {
-        "required": [
-          "message"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "message": {
-            "maxLength": 255,
-            "minLength": 1,
-            "pattern": "^[\\w\\s\\.\\-@:,;]{1,255}$",
-            "type": "string"
+      "securitySchemes": {
+          "noauthAuth": {
+              "type": "http",
+              "scheme": "noauth"
           }
-        }
-      },
-      "UsersItem": {
-        "required": [
-          "email",
-          "password",
-          "name",
-          "_id",
-          "is_admin",
-          "account_balance",
-          "onboarding_date"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "_id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "DD68C630-3CCB-4FD0-9C5B-A0A34C952681",
-            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
-            "minLength": 36,
-            "maxLength": 36,
-            "x-42c-format": "o:standard:uuid"
-          },
-          "email": {
-            "maxLength": 68,
-            "minLength": 5,
-            "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-            "type": "string",
-            "format": "email",
-            "example": "email@email.com",
-            "x-42c-format": "o:standard:email"
-          },
-          "password": {
-            "maxLength": 64,
-            "minLength": 8,
-            "pattern": "^[\\w&@#!?]{8,64}$",
-            "type": "string",
-            "format": "string",
-            "example": "p@ssword1"
-          },
-          "name": {
-            "maxLength": 50,
-            "minLength": 5,
-            "pattern": "(^[\\w\\s\\.]{5,50}$)",
-            "type": "string",
-            "example": "Johnny Appleseed"
-          },
-          "is_admin": {
-            "type": "boolean",
-            "description": "is admin"
-          },
-          "account_balance": {
-            "maximum": 1000,
-            "minimum": -50,
-            "type": "number",
-            "description": "remaining balance",
-            "format": "float"
-          },
-          "onboarding_date": {
-            "type": "string",
-            "maxLength": 25,
-            "format": "date-time"
-          },
-          "all_pictures": {
-            "maxItems": 100,
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "picUUID": {
-                  "type": "string",
-                  "pattern": "^example-[0-9a-z]+$",
-                  "maxLength": 32
-                }
-              }
-            }
-          }
-        }
-      },
-      "UsersListItem": {
-        "required": [
-          "email",
-          "name"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "_id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "DD68C630-3CCB-4FD0-9C5B-A0A34C952681",
-            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
-            "minLength": 36,
-            "maxLength": 36,
-            "x-42c-format": "o:standard:uuid"
-          },
-          "pic": {
-            "maxLength": 200,
-            "minLength": 0,
-            "pattern": "(\\w+:(\\/?\\/?)[^\\s]+)",
-            "type": "string",
-            "format": "uri"
-          },
-          "email": {
-            "maxLength": 68,
-            "minLength": 5,
-            "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-            "type": "string",
-            "format": "email",
-            "example": "email@email.com",
-            "x-42c-format": "o:standard:email"
-          },
-          "name": {
-            "maxLength": 50,
-            "minLength": 5,
-            "pattern": "(^[\\w\\s\\.]{5,50}$)",
-            "type": "string",
-            "example": "Johnny Appleseed"
-          },
-          "account_balance": {
-            "maximum": 1000,
-            "minimum": -50,
-            "type": "number",
-            "description": "remaining balance",
-            "format": "float"
-          }
-        }
-      },
-      "UserRegistrationData": {
-        "required": [
-          "account_balance",
-          "is_admin",
-          "name",
-          "pass",
-          "user"
-        ],
-        "type": "object",
-        "additionalProperties": false,
-        "example": {
-          "user": "foo@test.com",
-          "pass": "mygood2!pass",
-          "name": "PixiUser",
-          "is_admin": false,
-          "account_balance": 150
-        },
-        "properties": {
-          "user": {
-            "maxLength": 68,
-            "minLength": 5,
-            "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
-            "type": "string",
-            "format": "email",
-            "x-42c-format": "o:standard:email"
-          },
-          "pass": {
-            "maxLength": 64,
-            "minLength": 8,
-            "pattern": "^[\\w&@#!?]{8,64}$",
-            "type": "string"
-          },
-          "name": {
-            "maxLength": 30,
-            "minLength": 5,
-            "pattern": "^[\\w\\s\\.]{5,30}$",
-            "type": "string"
-          },
-          "is_admin": {
-            "type": "boolean"
-          },
-          "account_balance": {
-            "maximum": 1000,
-            "minimum": -50,
-            "type": "number",
-            "format": "float"
-          }
-        }
       }
-    },
-    "securitySchemes": {
-      "access-token": {
-        "type": "apiKey",
-        "description": "Most operations need to pass a user token retrieved calling /api/login",
-        "name": "x-access-token",
-        "in": "header"
-      }
-    }
-  },
-  "x-42c-components": {
-    "x-42c-schemas": {
-      "jose-header": {
-        "type": "object",
-        "properties": {
-          "alg": {
-            "type": "string",
-            "enum": [
-              "RS384"
-            ]
-          },
-          "typ": {
-            "type": "string",
-            "enum": [
-              "JWT"
-            ]
-          }
-        },
-        "required": [
-          "alg",
-          "typ"
-        ],
-        "additionalProperties": false
-      },
-      "jwt-claims": {
-        "type": "object",
-        "properties": {
-          "iat": {
-            "type": "number"
-          },
-          "exp": {
-            "type": "number"
-          },
-          "sub": {
-            "type": "string",
-            "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
-            "maxLength": 128,
-            "minLength": 8
-          },
-          "aud": {
-            "type": "string",
-            "enum": [
-              "pixi.42crunch.com",
-              "pixiUsers"
-            ]
-          },
-          "iss": {
-            "type": "string",
-            "enum": [
-              "https://42c-demo",
-              "https://42crunch.com"
-            ]
-          },
-          "user_profile": {
-            "$ref": "#/components/schemas/UsersItem"
-          },
-          "cid": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9]+$",
-            "maxLength": 50
-          },
-          "jti": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9\\-_]+$",
-            "maxLength": 50
-          }
-        },
-        "required": [
-          "iat",
-          "user_profile",
-          "iss",
-          "aud",
-          "sub",
-          "exp"
-        ],
-        "additionalProperties": false
-      }
-    }
   }
 }
