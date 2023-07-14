@@ -10,7 +10,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "Pixiv4-JWT-Validation"
+    "version": "Pixiv4-JWT-Validation-1"
   },
   "servers": [
     {
