@@ -29,3 +29,6 @@ jobs:
           platform-url: https://demolabs.42crunch.cloud
           upload-to-code-scanning: true
           sarif-report: 'audit-report-sarif.json'
+
+      - name: Test output
+        run: cat ${{ github.workspace }}/audit-report-sarif.json
