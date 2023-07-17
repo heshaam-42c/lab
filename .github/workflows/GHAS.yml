@@ -1,4 +1,4 @@
-name: 42Crunch <> GHAS
+name: 42Crunch REST API Static Security Testing
 
 # on: pull_request
 
@@ -26,7 +26,7 @@ jobs:
           # Follow these steps to configure API_TOKEN https://docs.42crunch.com/latest/content/tasks/integrate_github_actions.htm
           api-token: ${{ secrets.API_TOKEN }}
           min-score: 85
-          platform-url: https://demolabs.42crunch.cloud
+          platform-url: https://platform.42crunch.com
           upload-to-code-scanning: true
           sarif-report: 'audit-report-sarif.json'
           ignore-failures: true
