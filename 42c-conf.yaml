@@ -28,7 +28,8 @@ audit:
   branches:
     main:
       mapping:
-        Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
+        Pixi/pixi.json: 3bd43c28-0554-4b6e-87f8-688baca0a00e
+        vAPI/vAPI.json: ad806d93-959b-4751-8b79-0fd27d204888
         #scan-engine/scand-manager.json: e773f4f8-6282-491b-9b7a-227ce15a91b4
   
       discovery: false
@@ -47,8 +48,8 @@ audit:
       #   issue_id:
       #     - v3-global-http-clear
       #     - parameter-string-pattern
-    NewFeature1:
-      mapping:
-        Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
+    # NewFeature1:
+    #   mapping:
+    #     Pixi/pixi.json: 9273b0fc-ab90-4325-9fcb-a6f504e07840
       
-      discovery: false
+    #   discovery: false
