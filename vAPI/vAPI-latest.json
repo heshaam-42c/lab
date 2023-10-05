@@ -1,0 +1,1925 @@
+{
+    "info": {
+        "title": "vAPI",
+        "version": "1.0.0",
+        "description": "vAPI is Vulnerable Adversely Programmed Interface which is Self-Hostable API Interface that mimics OWASP API Top 10 scenarios in the means of Exercises."
+    },
+    "tags": [
+        {
+            "name": "API1",
+            "description": "Broken Object Level Authorization\r\n\r\nYou can register yourself as a User , Thats it ....or is there something more?"
+        },
+        {
+            "name": "API2",
+            "description": "Broken Authentication\r\n\r\nWe don't seem to have credentials for this , How do we login? (There's something in the Resources Folder given to you )"
+        },
+        {
+            "name": "API3",
+            "description": "Excessive Data Exposure\r\n\r\nWe have all been there , right? Giving away too much data and the Dev showing it . Try the Android App in the Resources folder"
+        },
+        {
+            "name": "API4",
+            "description": "Lack of Resources & Rate Limiting\r\n\r\nWe believe OTPs are a great way of authenticating users and secure too if implemented correctly!"
+        },
+        {
+            "name": "API5",
+            "description": "Broken Function Level Authorization\r\n\r\nYou can register yourself as a User. Thats it or is there something more? (I heard admin logins often but uses different route)"
+        },
+        {
+            "name": "API6",
+            "description": "Mass Assignment\r\n\r\nWelcome to our store , We will give you credits if you behave nicely. Our credit management is super secure"
+        },
+        {
+            "name": "API7",
+            "description": "Security Misconfiguration\r\n\r\nHey , its an API right? so we ARE expecting Cross Origin Requests . We just hope it works fine."
+        },
+        {
+            "name": "API8",
+            "description": "Injection\r\n\r\nI think you won't get credentials for this.You can try to login though."
+        },
+        {
+            "name": "API9",
+            "description": "Improper Assets Management\r\n\r\nHey Good News!!!!! We just launched our v2 API :)"
+        },
+        {
+            "name": "API9 > v2"
+        },
+        {
+            "name": "API10",
+            "description": "Nothing has been logged or monitored , You caught us :( !"
+        },
+        {
+            "name": "Arena"
+        },
+        {
+            "name": "Arena > JustWeakToken"
+        },
+        {
+            "name": "Arena > ServerSurfer"
+        },
+        {
+            "name": "Arena > StickyNotes"
+        }
+    ],
+    "paths": {
+        "/vapi/jwt/user": {
+            "get": {
+                "tags": [
+                    "Arena > JustWeakToken"
+                ],
+                "summary": "Get User",
+                "security": [
+                    {
+                        "WeakToken": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JwtUserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{justweaktoken}}"
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Arena > JustWeakToken"
+                ],
+                "summary": "Create User",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostJwtUserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_e4f3f706131045b1b2fd8dd80737d569"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api1/user": {
+            "post": {
+                "tags": [
+                    "API1"
+                ],
+                "summary": "Create User",
+                "security": [],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api1UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Accept",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_64776a09534d4e65b8e5ce030e41f754"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api3/user": {
+            "post": {
+                "tags": [
+                    "API3"
+                ],
+                "summary": "Create User",
+                "security": [],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api3UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_8703d1046da6484e9d4c589eb2fd82c9"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api4/user": {
+            "get": {
+                "tags": [
+                    "API4"
+                ],
+                "summary": "Get Details",
+                "security": [
+                    {
+                        "Api4KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {}
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api4_key}}"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ]
+            }
+        },
+        "/vapi/api5/user": {
+            "post": {
+                "tags": [
+                    "API5"
+                ],
+                "summary": "Create User",
+                "security": [],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api5UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_99e80c4e8ebe4591b0e754dc14b22963"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api6/user": {
+            "post": {
+                "tags": [
+                    "API6"
+                ],
+                "summary": "Create User",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api6UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_8703d1046da6484e9d4c589eb2fd82c9"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api7/user": {
+            "post": {
+                "tags": [
+                    "API7"
+                ],
+                "summary": "Create User",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api7UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_4b75e7192d824ae5a0ed0f001ff999d7"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api4/login": {
+            "post": {
+                "tags": [
+                    "API4"
+                ],
+                "summary": "Mobile Login",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^example-[0-9a-z]+$",
+                            "maxLength": 32
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_198cbe60b69c452d8835dc7c69254aa5"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/stickynotes": {
+            "get": {
+                "tags": [
+                    "Arena > StickyNotes"
+                ],
+                "summary": "Get Notes",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetStickyNotesResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "format",
+                        "schema": {
+                            "type": "string",
+                            "x-42c-sample": "json",
+                            "example": "json"
+                        },
+                        "required": true
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Arena > StickyNotes"
+                ],
+                "summary": "Store a Note",
+                "security": [],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PostStickyNotesResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_c659fafb0c184bf6a8e64b2cb980025a"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api6/user/me": {
+            "get": {
+                "tags": [
+                    "API6"
+                ],
+                "summary": "Get User",
+                "security": [
+                    {
+                        "Api6KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api6UserMeResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api6_auth}}"
+                    }
+                ]
+            }
+        },
+        "/vapi/serversurfer": {
+            "get": {
+                "tags": [
+                    "Arena > ServerSurfer"
+                ],
+                "summary": "Get Data",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerSurferResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "url",
+                        "schema": {
+                            "type": "string",
+                            "x-42c-sample": "https://roottusk.com",
+                            "example": "https://roottusk.com"
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/vapi/api7/user/key": {
+            "get": {
+                "tags": [
+                    "API7"
+                ],
+                "summary": "Get Key",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {}
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ]
+            }
+        },
+        "/vapi/api10/user/flag": {
+            "get": {
+                "tags": [
+                    "API10"
+                ],
+                "summary": "Get Flag",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "flag": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^example-[0-9a-z]+$",
+                            "maxLength": 32
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "description": "I am not kidding!"
+            }
+        },
+        "/vapi/api2/user/login": {
+            "post": {
+                "tags": [
+                    "API2"
+                ],
+                "summary": "User Login",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api2UserLoginResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_1dafb594c3044657b8056bad518c5fb3"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api4/otp/verify": {
+            "post": {
+                "tags": [
+                    "API4"
+                ],
+                "summary": "Verify OTP",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {}
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_39b2144161324da98b6a9aef3677a172"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api7/user/login": {
+            "get": {
+                "tags": [
+                    "API7"
+                ],
+                "summary": "User Login",
+                "security": [
+                    {
+                        "Api7KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api7UserLoginResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api7_auth}}"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ]
+            }
+        },
+        "/vapi/api8/user/login": {
+            "post": {
+                "tags": [
+                    "API8"
+                ],
+                "summary": "User Login",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api8UserLoginResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_5f887b20f6dc45b298677e7cb4ac92a9"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api7/user/logout": {
+            "get": {
+                "tags": [
+                    "API7"
+                ],
+                "summary": "User Logout",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        },
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^example-[0-9a-z]+$",
+                            "maxLength": 32
+                        },
+                        "example": "application/json"
+                    }
+                ]
+            }
+        },
+        "/vapi/api8/user/secret": {
+            "get": {
+                "tags": [
+                    "API8"
+                ],
+                "summary": "Get Secret",
+                "security": [
+                    {
+                        "Api8KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api8UserSecretResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^example-[0-9a-z]+$",
+                            "maxLength": 32
+                        },
+                        "example": "{{api8_auth}}"
+                    }
+                ]
+            }
+        },
+        "/vapi/api2/user/details": {
+            "get": {
+                "tags": [
+                    "API2"
+                ],
+                "summary": "Get Details",
+                "security": [
+                    {
+                        "Api2KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Api2UserDetailsResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api2_auth}}"
+                    }
+                ]
+            }
+        },
+        "/vapi/api9/v2/user/login": {
+            "post": {
+                "tags": [
+                    "API9 > v2"
+                ],
+                "summary": "Login",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^example-[0-9a-z]+$",
+                            "maxLength": 32
+                        },
+                        "example": "application/json"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_694c0d6f40ba4d69aec0cb67d91143c7"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api1/user/{api1_id}": {
+            "get": {
+                "tags": [
+                    "API1"
+                ],
+                "summary": "Get User",
+                "security": [
+                    {
+                        "Api1KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetApi1UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api1_auth}}"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "in": "path",
+                        "name": "api1_id",
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1024,
+                            "minimum": 0,
+                            "format": "int32",
+                            "x-42c-sample": 22,
+                            "example": 22
+                        },
+                        "required": true
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "API1"
+                ],
+                "summary": "Update User",
+                "security": [
+                    {
+                        "Api1KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PutApi1UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api1_auth}}"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Content-Type",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "application/json"
+                    },
+                    {
+                        "in": "path",
+                        "name": "api1_id",
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1024,
+                            "minimum": 0,
+                            "format": "int32",
+                            "x-42c-sample": 22,
+                            "example": 22
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/autogenerated_schema_202ecb69e04144a0bb4ea35e53852860"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/vapi/api5/user/{api5_id}": {
+            "get": {
+                "tags": [
+                    "API5"
+                ],
+                "summary": "Get User",
+                "security": [
+                    {
+                        "Api5KeyAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetApi5UserResponse"
+                                }
+                            }
+                        },
+                        "description": "Successful response"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization-Token",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "{{api5_auth}}"
+                    },
+                    {
+                        "in": "path",
+                        "name": "api5_id",
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 1024,
+                            "minimum": 0,
+                            "format": "int32",
+                            "x-42c-sample": 3,
+                            "example": 3
+                        },
+                        "required": true
+                    }
+                ]
+            }
+        }
+    },
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "http://localhost:8002"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "autogenerated_schema_198cbe60b69c452d8835dc7c69254aa5": {
+                "type": "object",
+                "required": [
+                    "mobileno"
+                ],
+                "properties": {
+                    "mobileno": {
+                        "type": "string",
+                        "pattern": "^[0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "x-42c-sample": "8000000535",
+                        "example": "8000000535"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_1dafb594c3044657b8056bad518c5fb3": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "pattern": "^[\\w\\-+.]+@((\\w\\-?)+\\.){1,4}[a-zA-Z0-9]{2,63}$",
+                        "maxLength": 68,
+                        "minLength": 5,
+                        "x-42c-sample": "savanna48@ortiz.com",
+                        "example": "savanna48@ortiz.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "x-42c-sample": "zTyBwV/9",
+                        "example": "zTyBwV/9"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_202ecb69e04144a0bb4ea35e53852860": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "name",
+                    "course",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9\\s]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "course": {
+                        "type": "string",
+                        "format": "hostname",
+                        "pattern": "^(?:(?:(?:[A-Za-z0-9](?:[\\w\\-]{0,61}[A-Za-z0-9])?)(?:\\.(?:[A-Za-z0-9](?:[\\w\\-]{0,61}[A-Za-z0-9])?))*\\.[A-Za-z]{2,})|(?:(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3}|\\[(?:(?:(?:[0-9A-Fa-f]{1,4}):){6}(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|::(?:(?:[0-9A-Fa-f]{1,4}):){5}(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|(?:[0-9A-Fa-f]{1,4})?::(?:(?:[0-9A-Fa-f]{1,4}):){4}(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|(?:(?:(?:[0-9A-Fa-f]{1,4}):){0,1}(?:[0-9A-Fa-f]{1,4}))?::(?:(?:[0-9A-Fa-f]{1,4}):){3}(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|(?:(?:(?:[0-9A-Fa-f]{1,4}):){0,2}(?:[0-9A-Fa-f]{1,4}))?::(?:(?:[0-9A-Fa-f]{1,4}):){2}(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|(?:(?:(?:[0-9A-Fa-f]{1,4}):){0,3}(?:[0-9A-Fa-f]{1,4}))?::(?:[0-9A-Fa-f]{1,4}):(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|(?:(?:(?:[0-9A-Fa-f]{1,4}):){0,4}(?:[0-9A-Fa-f]{1,4}))?::(?:(?:[0-9A-Fa-f]{1,4}):(?:[0-9A-Fa-f]{1,4})|(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])(?:\\.(?:25[0-5]|(?:2[0-4]|1[0-9]|[1-9]|)[0-9])){3})|(?:(?:(?:[0-9A-Fa-f]{1,4}):){0,5}(?:[0-9A-Fa-f]{1,4}))?::(?:[0-9A-Fa-f]{1,4})|(?:(?:(?:[0-9A-Fa-f]{1,4}):){0,6}(?:[0-9A-Fa-f]{1,4}))?::)\\]))$",
+                        "maxLength": 255,
+                        "minLength": 4
+                    },
+                    "password": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_39b2144161324da98b6a9aef3677a172": {
+                "type": "object",
+                "required": [
+                    "otp"
+                ],
+                "properties": {
+                    "otp": {
+                        "type": "string",
+                        "pattern": "^[0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_4b75e7192d824ae5a0ed0f001ff999d7": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_5f887b20f6dc45b298677e7cb4ac92a9": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "x-42c-sample": "z2Eav@j6A:^}fSMe",
+                        "example": "z2Eav@j6A:^}fSMe"
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z]+$",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "x-42c-sample": "admin",
+                        "example": "admin"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_64776a09534d4e65b8e5ce030e41f754": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "name",
+                    "course",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9\\s]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "course": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9\\s]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "password": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_694c0d6f40ba4d69aec0cb67d91143c7": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "pin"
+                ],
+                "properties": {
+                    "pin": {
+                        "type": "string",
+                        "pattern": "^[0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_8703d1046da6484e9d4c589eb2fd82c9": {
+                "type": "object",
+                "required": [
+                    "password",
+                    "name",
+                    "username"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9\\s]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "password": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_99e80c4e8ebe4591b0e754dc14b22963": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "password",
+                    "name",
+                    "address",
+                    "mobileno"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9\\s]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "address": {
+                        "type": "string",
+                        "pattern": "^[A-Z]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "mobileno": {
+                        "type": "string",
+                        "pattern": "^[0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "password": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_c659fafb0c184bf6a8e64b2cb980025a": {
+                "type": "object",
+                "required": [
+                    "note"
+                ],
+                "properties": {
+                    "note": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9\\s]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "autogenerated_schema_e4f3f706131045b1b2fd8dd80737d569": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "username": {
+                        "type": "string",
+                        "pattern": "^[a-z]+$",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Api6UserResponse": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "name",
+                    "username",
+                    "id"
+                ]
+            },
+            "Api6UserMeResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "credit": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "id",
+                    "name",
+                    "username",
+                    "credit"
+                ]
+            },
+            "Api7UserResponse": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "username",
+                    "password",
+                    "id"
+                ]
+            },
+            "Api7UserLoginResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "msg": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "success",
+                    "msg"
+                ]
+            },
+            "JwtUserResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "success",
+                    "text"
+                ]
+            },
+            "GetApi1UserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "course": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "id",
+                    "username",
+                    "name",
+                    "course"
+                ]
+            },
+            "PutApi1UserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "course": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "id",
+                    "username",
+                    "name",
+                    "course"
+                ]
+            },
+            "GetApi5UserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "mobileno": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "id",
+                    "username",
+                    "name",
+                    "address",
+                    "mobileno"
+                ]
+            },
+            "Api8UserSecretResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "secret": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "id",
+                    "username",
+                    "secret"
+                ]
+            },
+            "Api1UserResponse": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "course": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "username",
+                    "name",
+                    "course",
+                    "id"
+                ]
+            },
+            "Api3UserResponse": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "name",
+                    "username",
+                    "id"
+                ]
+            },
+            "Api2UserDetailsResponse": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "token": {
+                            "type": "string"
+                        },
+                        "address": {
+                            "type": "string"
+                        },
+                        "city": {
+                            "type": "string"
+                        },
+                        "country": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "email",
+                        "name",
+                        "token",
+                        "address",
+                        "city",
+                        "country"
+                    ]
+                }
+            },
+            "Api8UserLoginResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "authkey": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "success",
+                    "authkey"
+                ]
+            },
+            "PostJwtUserResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "success",
+                    "token"
+                ]
+            },
+            "ServerSurferResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "success",
+                    "data"
+                ]
+            },
+            "GetStickyNotesResponse": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "note": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "note"
+                    ]
+                }
+            },
+            "PostStickyNotesResponse": {
+                "type": "object",
+                "properties": {
+                    "note": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "note",
+                    "id"
+                ]
+            },
+            "Api2UserLoginResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "success",
+                    "token"
+                ]
+            },
+            "PostApi5UserResponse": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "mobileno": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "username",
+                    "name",
+                    "address",
+                    "mobileno",
+                    "id"
+                ]
+            },
+            "Api5UserResponse": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "mobileno": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "username",
+                    "name",
+                    "address",
+                    "mobileno",
+                    "id"
+                ]
+            }
+        },
+        "securitySchemes": {
+            "WeakToken": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "noauthAuth": {
+                "type": "http",
+                "scheme": "noauth"
+            },
+            "Api1KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "Api2KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "Api4KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "Api5KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "Api6KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "Api7KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            },
+            "Api8KeyAuth": {
+                "in": "header",
+                "name": "Authorization-Token",
+                "type": "apiKey"
+            }
+        }
+    }
+}
