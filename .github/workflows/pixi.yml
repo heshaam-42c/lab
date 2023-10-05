@@ -7,8 +7,8 @@ jobs:
     steps:
     - id: step1
       run: | 
-        response=$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/andy/api/login | jq -r '.token')
+        response=$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/hesh/api/login | jq -r '.token')
         echo "response from curl= $response"
         
-        docker pull 42crunch/scand-agent:latest
-        docker run -e SCAN_TOKEN=342e841f-b915-4751-9d86-012a968a4eb7 -e SECURITY_TOKEN=$response 42crunch/scand-agent:latest
+        docker pull 42crunch/scand-agent:v2.0.0
+        docker run -e SCAN_TOKEN=scan_59f65ec3-983b-4328-881a-0d4812b74ed2 -e SECURITY_TOKEN=$response 42crunch/scand-agent:latest
