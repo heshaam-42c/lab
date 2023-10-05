@@ -1,4 +1,4 @@
-name: Pixi Token
+name: Pixi Scan v2
 
 on: push
 jobs:

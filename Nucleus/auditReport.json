@@ -1,0 +1,469 @@
+{
+    "index": [
+        "/components/schemas/ConfirmationMessage/properties/message",
+        "/components/schemas/PicturesList/items/properties/description",
+        "/components/schemas/PicturesList/items/properties/filename",
+        "/components/schemas/PicturesList/items/properties/image_url",
+        "/components/schemas/PicturesList/items/properties/name",
+        "/components/schemas/PicturesList/items/properties/title",
+        "/components/securitySchemes/access-token",
+        "/paths/~1admin~1all_users/get/parameters/0",
+        "/paths/~1admin~1users~1search/get/parameters/0",
+        "/paths/~1admin~1users~1search/get/parameters/1",
+        "/paths/~1admin~1user~1{userid}/delete/responses",
+        "/paths/~1admin~1user~1{userid}/delete/responses/200/content/application~1json/schema/properties/message",
+        "/paths/~1picture~1file_upload/post/requestBody/content/application~1json",
+        "/paths/~1picture~1upload/post/requestBody/content/application~1json",
+        "/paths/~1picture~1{id}/delete/parameters/0",
+        "/paths/~1picture~1{id}/delete/responses",
+        "/paths/~1picture~1{id}/delete/responses/200/content/application~1json/schema/properties/message",
+        "/paths/~1user~1edit_info/put/parameters/0",
+        "/paths/~1user~1edit_info/put/requestBody/content/application~1json",
+        "/paths/~1user~1login/post",
+        "/paths/~1user~1register/post"
+    ],
+    "assessmentVersion": "3.1.6",
+    "assessmentReportVersion": "1.0.1",
+    "commit": "295b875dd73bdbd5deecfa6bbdee88688f07c905-N",
+    "oasVersion": "3.0.3",
+    "apiVersion": "4.3",
+    "fileId": "39a3c38d-b0d7-4f5d-8852-13aaa5c1ac7c",
+    "apiId": "",
+    "openapiState": "valid",
+    "score": 96.47,
+    "valid": true,
+    "criticality": 3,
+    "issueCounter": 20,
+    "warnings": {
+        "issues": {
+            "v3-warning-sample-undefined": {
+                "description": "No sample values or examples were provided for API Conformance Scan",
+                "totalIssues": 8,
+                "issues": [
+                    {
+                        "pointer": 17,
+                        "specificDescription": "No sample defined in the 'Parameter' object",
+                        "fingerprint": "d300914718f76b4640093f59ee1365a763845029"
+                    },
+                    {
+                        "pointer": 18,
+                        "specificDescription": "No sample defined in the 'Request Body' object",
+                        "fingerprint": "45a8c5167ff9096b47b971f281815b7e1f3eaafe"
+                    },
+                    {
+                        "pointer": 8,
+                        "specificDescription": "No sample defined in the 'Parameter' object",
+                        "fingerprint": "de0867266a82bc5dab85a69be7cd9fc723655404"
+                    },
+                    {
+                        "pointer": 9,
+                        "specificDescription": "No sample defined in the 'Parameter' object",
+                        "fingerprint": "40958a4827c84595d9c483a8e6ef52282bbe66e8"
+                    },
+                    {
+                        "pointer": 13,
+                        "specificDescription": "No sample defined in the 'Request Body' object",
+                        "fingerprint": "3a45080b1301c997fc645159fa7d1a3e2a89bdd1"
+                    },
+                    {
+                        "pointer": 14,
+                        "specificDescription": "No sample defined in the 'Parameter' object",
+                        "fingerprint": "4eac84689ef10c06d0d9fe17f126c9448c12460e"
+                    },
+                    {
+                        "pointer": 7,
+                        "specificDescription": "No sample defined in the 'Parameter' object",
+                        "fingerprint": "cfb996a3cde68fe0b6043b3b5e5581419cd22c7e"
+                    },
+                    {
+                        "pointer": 12,
+                        "specificDescription": "No sample defined in the 'Request Body' object",
+                        "fingerprint": "8cb2cabc33e050c130fac36ddda3cd3c40ff9c88"
+                    }
+                ],
+                "tooManyError": false
+            }
+        }
+    },
+    "operationsNoAuthentication": [
+        19,
+        20
+    ],
+    "minimalReport": false,
+    "maxEntriesPerIssue": 30,
+    "maxImpactedPerEntry": 30,
+    "security": {
+        "issueCounter": 1,
+        "score": 30,
+        "criticality": 1,
+        "issues": {
+            "v3-global-securityscheme-apikey-inheader": {
+                "description": "Transporting API keys in a header over network allowed",
+                "issues": [
+                    {
+                        "score": 0,
+                        "pointer": 6,
+                        "tooManyImpacted": false,
+                        "criticality": 1,
+                        "request": true,
+                        "fingerprint": "b6985a73fd06af7a881b72a43656e50eb021e585"
+                    }
+                ],
+                "issueCounter": 1,
+                "score": 0,
+                "criticality": 1,
+                "tooManyError": false
+            }
+        },
+        "subgroupIssueCounter": {
+            "authentication": {
+                "none": 0,
+                "info": 1,
+                "low": 0,
+                "medium": 0,
+                "high": 0,
+                "critical": 0
+            },
+            "authorization": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 0,
+                "high": 0,
+                "critical": 0
+            },
+            "transport": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 0,
+                "high": 0,
+                "critical": 0
+            }
+        }
+    },
+    "data": {
+        "issueCounter": 19,
+        "score": 66.47,
+        "criticality": 3,
+        "issues": {
+            "v3-response-401": {
+                "description": "If operation has security defined, the 401 response should be defined",
+                "issues": [
+                    {
+                        "score": -0.06,
+                        "pointer": 10,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "e4a73f29f8fdf2df697202bbacb8f42c5935d380"
+                    },
+                    {
+                        "score": -0.06,
+                        "pointer": 15,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "fedd8dcb66ce1cd7364ea895125f6e8561eed81b"
+                    }
+                ],
+                "issueCounter": 2,
+                "score": -0.13,
+                "criticality": 3,
+                "tooManyError": false
+            },
+            "v3-response-404": {
+                "description": "404 response should be defined for all GET, PUT, HEAD, and DELETE operations",
+                "issues": [
+                    {
+                        "score": -0.06,
+                        "pointer": 10,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "f2531a74a61d3348e6bdc3d595d463795d9bd934"
+                    },
+                    {
+                        "score": -0.06,
+                        "pointer": 15,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "bb890c6be653c335f6bf37dd739a6d35772c2888"
+                    }
+                ],
+                "issueCounter": 2,
+                "score": -0.13,
+                "criticality": 3,
+                "tooManyError": false
+            },
+            "v3-response-406": {
+                "description": "406 response should be defined for all GET, POST, PUT, PATCH, and DELETE operations",
+                "issues": [
+                    {
+                        "score": -0.06,
+                        "pointer": 10,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "11fbbd24704432a854c03344ef74609c3d701909"
+                    },
+                    {
+                        "score": -0.06,
+                        "pointer": 15,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "d705fd6e9a17912993ac38cb8ceca513e24d929d"
+                    }
+                ],
+                "issueCounter": 2,
+                "score": -0.13,
+                "criticality": 3,
+                "tooManyError": false
+            },
+            "v3-response-429": {
+                "description": "429 response should be defined for all operations",
+                "issues": [
+                    {
+                        "score": -0.06,
+                        "pointer": 10,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "fd25fa8843cc18e401c3358f2ad1fd69e6771f20"
+                    },
+                    {
+                        "score": -0.06,
+                        "pointer": 15,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "cb6a6e98659bc4c7be124695b19a874152b63d02"
+                    }
+                ],
+                "issueCounter": 2,
+                "score": -0.13,
+                "criticality": 3,
+                "tooManyError": false
+            },
+            "v3-response-default-undefined": {
+                "description": "No default response defined for the operation",
+                "issues": [
+                    {
+                        "score": -0.06,
+                        "pointer": 10,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "a983eca0b1914f875328290046295169dfebe292"
+                    },
+                    {
+                        "score": -0.06,
+                        "pointer": 15,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "fe725c45d5e59443ab3a1b1eaca159e08e4c2767"
+                    }
+                ],
+                "issueCounter": 2,
+                "score": -0.13,
+                "criticality": 3,
+                "tooManyError": false
+            },
+            "v3-schema-response-string-maxlength": {
+                "description": "String schema in a response has no maximum length defined",
+                "issues": [
+                    {
+                        "score": -0.36,
+                        "pointer": 11,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "4b305dbafc9c8ccf6eee01f4d8e9172455d4cebc"
+                    }
+                ],
+                "issueCounter": 1,
+                "score": -0.36,
+                "criticality": 3,
+                "tooManyError": false
+            },
+            "v3-schema-response-string-pattern": {
+                "description": "String schema in a response has no pattern defined",
+                "issues": [
+                    {
+                        "score": -0.53,
+                        "pointer": 11,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "042b1baff0edce0b24d6700d8a48d77083a1c726"
+                    },
+                    {
+                        "score": -0.53,
+                        "pointer": 16,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "e6179f89d365584794b199a1c16e15e75f7fdb35"
+                    },
+                    {
+                        "score": -0.53,
+                        "pointer": 0,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "9159358fb63788df9a9886704192f932ccca4c03"
+                    },
+                    {
+                        "score": -0.19,
+                        "pointer": 2,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "01ad9c6aa58e7537bfdea51b1bd8e434518fc6cc"
+                    },
+                    {
+                        "score": -0.19,
+                        "pointer": 1,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "5b6b23a754d35a1139ab29495d6d6bef48d1a24f"
+                    },
+                    {
+                        "score": -0.19,
+                        "pointer": 5,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "8d63ee2cafe66c3a7d3b3f6641ac1c3eff3f6739"
+                    },
+                    {
+                        "score": -0.19,
+                        "pointer": 3,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "f27c0b87eaab3adc74ca2efc14cb8ddf9f10b074"
+                    },
+                    {
+                        "score": -0.19,
+                        "pointer": 4,
+                        "tooManyImpacted": false,
+                        "criticality": 3,
+                        "response": true,
+                        "fingerprint": "6c80ca8067e3876e94d0f64ab937fbd0d5d7d48d"
+                    }
+                ],
+                "issueCounter": 8,
+                "score": -2.54,
+                "criticality": 3,
+                "tooManyError": false
+            }
+        },
+        "subgroupIssueCounter": {
+            "parameters": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 0,
+                "high": 0,
+                "critical": 0
+            },
+            "responseHeader": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 0,
+                "high": 0,
+                "critical": 0
+            },
+            "responseDefinition": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 10,
+                "high": 0,
+                "critical": 0
+            },
+            "schema": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 9,
+                "high": 0,
+                "critical": 0
+            },
+            "paths": {
+                "none": 0,
+                "info": 0,
+                "low": 0,
+                "medium": 0,
+                "high": 0,
+                "critical": 0
+            }
+        }
+    },
+    "issuesKey": [
+        "v3-schema-response-string-pattern",
+        "v3-global-securityscheme-apikey-inheader",
+        "v3-response-429",
+        "v3-schema-response-string-maxlength",
+        "v3-response-default-undefined",
+        "v3-response-401",
+        "v3-response-404",
+        "v3-response-406",
+        "v3-warning-sample-undefined"
+    ],
+    "skippedIssues": [
+        "v3-operation-securityrequirement-apikey-inheader",
+        "v3-global-securityscheme-apikey-inheader",
+        "v3-global-securityrequirement-apikey-inheader",
+        "operation-securityrequirement-apikey-inheader",
+        "global-securityscheme-apikey-inheader",
+        "global-securityrequirement-apikey-inheader"
+    ],
+    "summary": {
+        "oasVersion": "3.0.3",
+        "apiVersion": "4.3",
+        "basepath": "",
+        "apiName": "Pixi App API",
+        "description": "Pixi Photo Sharing API",
+        "endpoints": [
+            "https://photo-demo.westeurope.cloudapp.azure.com/api"
+        ],
+        "pathCounter": 1,
+        "operationCounter": 11,
+        "parameterCounter": 6,
+        "requestBodyCounter": 5,
+        "schemesCounter": {
+            "https": 11
+        },
+        "requestContentType": {
+            "application/json": 5
+        },
+        "responseContentType": {
+            "application/json": 31
+        },
+        "securitySchemes": {
+            "access-token": {
+                "counterInsecure": 0,
+                "counterSecure": 9,
+                "type": "apiKey",
+                "apiKeyIn": "header",
+                "apiKeyName": "x-access-token"
+            }
+        },
+        "componentsSchemasCounter": 8,
+        "componentsResponsesCounter": 0,
+        "componentsParametersCounter": 0,
+        "componentsExamplesCounter": 0,
+        "componentsRequestBodiesCounter": 0,
+        "componentsHeadersCounter": 0,
+        "componentsSecuritySchemesCounter": 1,
+        "componentsLinksCounter": 0,
+        "componentsCallbacksCounter": 0
+    }
+}
