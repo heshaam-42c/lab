@@ -7,7 +7,8 @@ jobs:
     steps:
     - id: step1
       run: | 
-        response=$(curl -k -d "user=user@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/hesh/api/user/login | jq -r '.token')
+        curl -k -d "user=scanv2@acme.com&pass=hellopixi&name=ScanV2Hesh&is_admin=false&account_balance=1000" -X POST https://photo-demo.westeurope.cloudapp.azure.com/hesh/api/user/register
+        response=$(curl -k -d "user=scanv2@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/hesh/api/user/login | jq -r '.token')
         echo "response from curl= $response"
         
         docker pull 42crunch/scand-agent:v2.0.0
