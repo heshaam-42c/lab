@@ -11,5 +11,5 @@ jobs:
         response=$(curl -k -d "user=scanv2@acme.com&pass=hellopixi" -X POST https://photo-demo.westeurope.cloudapp.azure.com/hesh/api/user/login | jq -r '.token')
         echo "response from curl= $response"
         
-        docker pull 42crunch/scand-agent:v2.0.0
-        docker run -e SCAN_TOKEN=scan_59f65ec3-983b-4328-881a-0d4812b74ed2 -e SCAN42C_SECURITY_ACCESS_TOKEN=$response -e PLATFORM_SERVICE=services.demolabs.42crunch.cloud:8001 42crunch/scand-agent:v2.0.0
+        docker pull 42crunch/scand-agent:v2
+        docker run -e SCAN_TOKEN=scan_59f65ec3-983b-4328-881a-0d4812b74ed2 -e SCAN42C_SECURITY_ACCESS_TOKEN=$response -e PLATFORM_SERVICE=services.demolabs.42crunch.cloud:8001 42crunch/scand-agent:v2
